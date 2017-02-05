@@ -5,10 +5,19 @@ const DeckedCard = require('./deckedCard');
 class Pile {
   constructor(arrayOfDeckedCards) {
     if (arrayOfDeckedCards === undefined) {
-      this._deckedCards;
+      this._deckedCards = [];
     }
 
     this._deckedCards = Array.from(arrayOfDeckedCards);
+  }
+
+  addCard(deckedCard) {
+    this._deckedCards.push(deckedCard);
+  }
+
+  dealCard() {
+    const card = this._deckedCards.shift();
+    return card;
   }
 
   shuffle() {
@@ -20,6 +29,14 @@ class Pile {
       let tmp = this._dekcedCards[randomIndex];
       this._dekcedCards[randomIndex] = this._dekcedCards[remainExchanges];
       this._dekcedCards[remainExchanges] = tmp;
+    }
+  }
+
+  sort(func) {
+    if (func === undefined) {
+      this.deckedCards.sort(DeckedCard.compareTo);
+    } else {
+      his.deckedCards.sort(func);
     }
   }
 

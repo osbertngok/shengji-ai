@@ -21,6 +21,10 @@ class Card {
     return suit * 13 + rank - 1;
   }
 
+  getIndex() {
+    return Card.getIndex(this.suit, this.rank);
+  }
+
   getOrCreate(suit, rank) {
     const index = Card.getIndex(suit, rank);
     const existingCard = cardCollection[index];
