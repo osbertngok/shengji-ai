@@ -1,9 +1,9 @@
 'use strict';
 const assert = require('chai').assert;
 
-const Card = require('../../models/card');
+const Card = require('../../src/models/card');
 
-const DeckedCard = require('../../models/deckedCard');
+const DeckedCard = require('../../src/models/deckedCard');
 
 describe('DeckedCard', () =>  {
   it('Cards should be singleton', () => {

@@ -70,7 +70,7 @@ class ShengjiUtils {
         } else if (!isDominantCard1 && isDominantCard2) {
           return -1;
         } else {
-          ShengjiUtils.
+          ShengjiUtils.compareDominantCards(deckedCard1, deckedCard2);
         }
       }
 

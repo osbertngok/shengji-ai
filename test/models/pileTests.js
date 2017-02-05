@@ -1,11 +1,11 @@
 'use strict';
 const assert = require('chai').assert;
 
-const Card = require('../../models/card');
+const Card = require('../../src/models/card');
 
-const DeckedCard = require('../../models/deckedCard');
+const DeckedCard = require('../../src/models/deckedCard');
 
-const Deck = require('../../models/deck');
+const Deck = require('../../src/models/deck');
 
 describe('Pile', () => {
   it('A Deck to pile has count 54', () => {

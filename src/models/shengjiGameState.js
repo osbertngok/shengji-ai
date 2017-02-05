@@ -14,37 +14,37 @@ class ShengjiGameState {
       this._dealer = config.dealer;
       this._dominantCard = config.dominantCard;
     }
+  }
 
-    get currentRank(){
-      switch (this.dealerTeam) {
-        case 1:
-          return this.team1Rank;
-        case 2:
-          return this.team2Rank;
-        default:
-          throw ShengjiErrorFactory.invalidDealerTeam();
-      }
+  get currentRank(){
+    switch (this.dealerTeam) {
+      case 1:
+        return this.team1Rank;
+      case 2:
+        return this.team2Rank;
+      default:
+        throw ShengjiErrorFactory.invalidDealerTeam();
     }
-    
-    get team1Rank(){
-      return this._team1Rank;
-    }
+  }
+  
+  get team1Rank(){
+    return this._team1Rank;
+  }
 
-    get team2Rank(){
-      return this._team2Rank;
-    }
+  get team2Rank(){
+    return this._team2Rank;
+  }
 
-    get dealerTeam(){
-      return this._dealerTeam;
-    }
+  get dealerTeam(){
+    return this._dealerTeam;
+  }
 
-    get dealer(){
-      return this._dealer;
-    }
+  get dealer(){
+    return this._dealer;
+  }
 
-    get dominantCard(){
-      return this._dominantCard;
-    }
+  get dominantCard(){
+    return this._dominantCard;
   }
 }
 
