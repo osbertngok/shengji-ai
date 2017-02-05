@@ -2,11 +2,9 @@
 const assert = require('chai').assert;
 
 const Card = require('../../src/models/card');
-
 const DeckedCard = require('../../src/models/deckedCard');
-
+const Pile = require('../../src/models/pile');
 const ShengjiGameState = require('../../src/models/shengjiGameState');
-
 const ShengjiUtils = require('../../src/utils/shengjiUtils');
 
 describe('Heart 2 Dominant Card Comparison', () =>  {
@@ -29,6 +27,13 @@ describe('Heart 2 Dominant Card Comparison', () =>  {
     assert.equal(-1, comparisonFunc(card1, card2));
     assert.equal(1, comparisonFunc(card2, card1));
   });
+
+  it ('Dominant Rank vs. Joker', () => {
+    const card1 = new DeckedCard(1, Card.Suits.Club, 2);
+    const card2 = new DeckedCard(1, Card.Suits.Joker, 2);
+    assert.equal(-1, comparisonFunc(card1, card2));
+    assert.equal(1, comparisonFunc(card2, card1));   
+  })
 
   it('Dominant Rank, non-dominant suit vs. dominant suit', () => {
     const card1 = new DeckedCard(1, Card.Suits.Diamond, 2);
@@ -66,4 +71,42 @@ describe('Heart 2 Dominant Card Comparison', () =>  {
     assert.equal(-1, ShengjiUtils.compareNonDominantCards(card1, card2));
     assert.equal(1, ShengjiUtils.compareNonDominantCards(card2, card1));
   });
+
+  it('sorting', () => {
+    const pile = new Pile([
+      new DeckedCard(1, Card.Suits.Diamond, 12),
+      new DeckedCard(2, Card.Suits.Diamond, 1),
+      new DeckedCard(2, Card.Suits.Diamond, 4),
+      new DeckedCard(3, Card.Suits.Joker, 1),
+      new DeckedCard(2, Card.Suits.Joker, 1),
+      new DeckedCard(2, Card.Suits.Heart, 2),
+      new DeckedCard(3, Card.Suits.Spade, 2),
+      new DeckedCard(3, Card.Suits.Heart, 2),
+      new DeckedCard(1, Card.Suits.Joker, 1),
+      new DeckedCard(3, Card.Suits.Spade, 5),
+      new DeckedCard(1, Card.Suits.Spade, 6),
+      new DeckedCard(1, Card.Suits.Club, 7),
+      new DeckedCard(1, Card.Suits.Club, 8),
+      new DeckedCard(1, Card.Suits.Heart, 9)
+    ]);
+    pile.sort(ShengjiUtils.getDeckedCardSortFunc(shengjiGameState));
+    [
+      new DeckedCard(3, Card.Suits.Spade, 5),
+      new DeckedCard(1, Card.Suits.Spade, 6),
+      new DeckedCard(1, Card.Suits.Club, 7),
+      new DeckedCard(1, Card.Suits.Club, 8),
+      new DeckedCard(2, Card.Suits.Diamond, 4),
+      new DeckedCard(1, Card.Suits.Diamond, 12),
+      new DeckedCard(2, Card.Suits.Diamond, 1),
+      new DeckedCard(1, Card.Suits.Heart, 9),
+      new DeckedCard(3, Card.Suits.Spade, 2),
+      new DeckedCard(2, Card.Suits.Heart, 2),
+      new DeckedCard(3, Card.Suits.Heart, 2),
+      new DeckedCard(1, Card.Suits.Joker, 1),
+      new DeckedCard(2, Card.Suits.Joker, 1),
+      new DeckedCard(3, Card.Suits.Joker, 1)      
+    ].forEach(deckedCard => {
+      assert.strictEqual(deckedCard, pile.dealCard())
+    });
+  })
 });

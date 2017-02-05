@@ -9,6 +9,7 @@ class Pile {
     }
 
     this._deckedCards = Array.from(arrayOfDeckedCards);
+    return this;
   }
 
   addCard(deckedCard) {
@@ -36,8 +37,12 @@ class Pile {
     if (func === undefined) {
       this.deckedCards.sort(DeckedCard.compareTo);
     } else {
-      his.deckedCards.sort(func);
+      this.deckedCards.sort(func);
     }
+  }
+
+  get deckedCards() {
+    return this._deckedCards;
   }
 
   get length() {
