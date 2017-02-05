@@ -18,14 +18,13 @@ class ShengjiUtils {
       ShengjiUtils.getDivideAndCompareFunc(
         ShengjiUtils.isJoker,
         (deckedCard1, deckedCard2) =>
-          (shengjiGameState) =>
-            ShengjiUtils.compareDominantNonJokerCards(
-              shengjiGameState,
-              deckedCard1,
-              deckedCard2
-            ),
-          ShengjiUtils.compareJokerCards
-          );
+          ShengjiUtils.compareDominantNonJokerCards(
+            shengjiGameState,
+            deckedCard1,
+            deckedCard2
+          ),
+        ShengjiUtils.compareJokerCards
+        );
     return compareByJokerFunc(deckedCard1, deckedCard2);
   }
 
@@ -37,7 +36,7 @@ class ShengjiUtils {
     if (currentRank === 14) {
       return ShengjiUtils.compareSameSuitCards(deckedCard1, deckedCard2);
     } else {
-      const compareFunc = ShengjiUtils.DivideAndCompareFunc([
+      const compareFunc = ShengjiUtils.getDivideAndCompareFunc(
         (deckedCard) => {
           return ShengjiUtils.isDominantRank(shengjiGameState, deckedCard);
         },
@@ -64,20 +63,26 @@ class ShengjiUtils {
             return compareFunc(deckedCard1, deckedCard2);
           } else {
             const compareFunc = ShengjiUtils.getDivideAndCompareFunc(
-              (deckedCard) => {
-                return dominantCard.suit === deckedCard.suit;
-              },
-              (deckedCard1, deckedCard2) => {
-                return ShengjiUtils.compareNonDominantCards(deckedCard1, deckedCard2);
-              },
-              (deckedCard1, deckedCard2) => {
-                return ShengjiUtils.compareNumber(deckedCard1.deckNo, deckedCard2.deckNo);
-              }
-            );
+              (deckedCard) =>
+                ShengjiUtils.isDominantRank(shengjiGameState, deckedCard),
+              ShengjiUtils.compareNonDominantCards,
+              ShengjiUtils.getDivideAndCompareFunc(
+                (deckedCard) => {
+                  return dominantCard.suit === deckedCard.card.suit;
+                },
+                (deckedCard1, deckedCard2) => {
+                  return ShengjiUtils.compareNonDominantCards(deckedCard1, deckedCard2);
+                },
+                (deckedCard1, deckedCard2) => {
+                  return ShengjiUtils.compareNumber(deckedCard1.deckNo, deckedCard2.deckNo);
+                }
+              )
+            )
             return compareFunc(deckedCard1, deckedCard2);
           }
         }
-      ]);
+      );
+    return compareFunc(deckedCard1, deckedCard2);
     }
   }
 

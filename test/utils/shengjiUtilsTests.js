@@ -15,9 +15,24 @@ describe('Heart 2 Dominant Card Comparison', () =>  {
     'dealerTeam': 1
   });
   const comparisonFunc = ShengjiUtils.getDeckedCardSortFunc(shengjiGameState);
+
   it('Non dominant card vs. Joker', () => {
     const card1 = new DeckedCard(1, Card.Suits.Club, 10);
     const card2 = new DeckedCard(1, Card.Suits.Joker, 1);
+    assert.equal(-1, comparisonFunc(card1, card2));
+    assert.equal(1, comparisonFunc(card2, card1));
+  });
+
+  it('Non dominant card vs. Dominant Rank', () => {
+    const card1 = new DeckedCard(1, Card.Suits.Club, 10);
+    const card2 = new DeckedCard(1, Card.Suits.Heart, 2);
+    assert.equal(-1, comparisonFunc(card1, card2));
+    assert.equal(1, comparisonFunc(card2, card1));
+  });
+
+  it('Dominant Rank, non-dominant suit vs. dominant suit', () => {
+    const card1 = new DeckedCard(1, Card.Suits.Diamond, 2);
+    const card2 = new DeckedCard(1, Card.Suits.Heart, 2);
     assert.equal(-1, comparisonFunc(card1, card2));
     assert.equal(1, comparisonFunc(card2, card1));
   });
@@ -34,6 +49,13 @@ describe('Heart 2 Dominant Card Comparison', () =>  {
   it('Same Suit Comparison', () => {
     const card1 = new DeckedCard(1, Card.Suits.Spade, 10);
     const card2 = new DeckedCard(1, Card.Suits.Spade, 11);
+    assert.equal(-1, ShengjiUtils.compareSameSuitDeckedCards(card1, card2));
+    assert.equal(1, ShengjiUtils.compareSameSuitDeckedCards(card2, card1));
+  });
+
+  it('Ace Comparison', () => {
+    const card1 = new DeckedCard(1, Card.Suits.Spade, 10);
+    const card2 = new DeckedCard(1, Card.Suits.Spade, 1);
     assert.equal(-1, ShengjiUtils.compareSameSuitDeckedCards(card1, card2));
     assert.equal(1, ShengjiUtils.compareSameSuitDeckedCards(card2, card1));
   });
