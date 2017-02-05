@@ -7,6 +7,11 @@ class ShengjiError extends Error {
 
 
 class ShengjiErrorFactory {
+
+  static invalidDealerTeam() {
+    return new ShengjiError('Invalid Dealer Team');
+  }
+
   static invalidSuit() {
     return new ShengjiError('Invalid Suit');
   }

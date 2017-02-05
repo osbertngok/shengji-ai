@@ -1,4 +1,7 @@
 'use strict';
+
+const ShengjiErrorFactory = require('./shengjiError');
+
 class ShengjiGameState {
   constructor(config){
     if (config === undefined) {
@@ -8,11 +11,18 @@ class ShengjiGameState {
       this._dealer = 0;
       this._dominantCard = null;
     } else {
+      ShengjiGameState.validate(config);
       this._team1Rank = config.team1Rank;
       this._team2Rank = config.team2Rank;
       this._dealerTeam = config.dealerTeam;
       this._dealer = config.dealer;
       this._dominantCard = config.dominantCard;
+    }
+  }
+
+  static validate(config) {
+    if (config.dealerTeam !== 1 && config.dealerTeam !== 2) {
+      throw ShengjiErrorFactory.invalidDealerTeam();
     }
   }
 

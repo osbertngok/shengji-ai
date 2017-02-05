@@ -6,6 +6,18 @@ const Card = require('../../src/models/card');
 const DeckedCard = require('../../src/models/deckedCard');
 
 describe('DeckedCard', () =>  {
+  it('DeckedCard constructor', () => {
+    const card1 = new DeckedCard(1, Card.Suits.Club, 10);
+    const card2 = new DeckedCard(2, Card.Suits.Joker, 2);
+    assert.strictEqual(1, card1.deckNo);
+    assert.strictEqual(Card.Suits.Club, card1.card.suit);
+    assert.strictEqual(10, card1.card.rank);
+
+    assert.strictEqual(2, card2.deckNo);
+    assert.strictEqual(Card.Suits.Joker, card2.card.suit);
+    assert.strictEqual(2, card2.card.rank);
+  });
+
   it('Cards should be singleton', () => {
     const card1 = new DeckedCard(1, Card.Suits.Club, 10);
     const card2 = new DeckedCard(1, Card.Suits.Club, 10);
