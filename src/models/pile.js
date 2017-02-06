@@ -1,6 +1,7 @@
 'use strict';
 const Card = require('./card');
 const DeckedCard = require('./deckedCard');
+const ShengjiErrorFactory = require('./shengjiError');
 
 class Pile {
   constructor(arrayOfDeckedCards) {
@@ -16,9 +17,21 @@ class Pile {
     this._deckedCards.push(deckedCard);
   }
 
+  clone() {
+    return new Pile(this.deckedCards);
+  }
+
   dealCard() {
     const card = this._deckedCards.shift();
     return card;
+  }
+
+  prettyPrint(shengjiGameState) {
+    const pileForPrettyPrint = this.clone();
+    pileForPrettyPrint.sort(shengjiGameState);
+    return pileForPrettyPrint.deckedCards
+                             .map(deckedCard => deckedCard.card.toString())
+                             .join(' ');
   }
 
   shuffle() {
@@ -36,6 +49,8 @@ class Pile {
   sort(func) {
     if (func === undefined) {
       this.deckedCards.sort(DeckedCard.compareTo);
+    } else if (typeof func !== 'function') {
+      throw ShengjiErrorFactory.invalidSortFunction();
     } else {
       this.deckedCards.sort(func);
     }

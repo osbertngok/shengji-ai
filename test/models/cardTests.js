@@ -67,4 +67,14 @@ describe('Card', () => {
       card._suit = Card.Suits.Joker;
     })
   });
+
+  it('ToString', () => {
+    assert.strictEqual('♦A', (new Card(Card.Suits.Diamond, 1)).toString());
+    assert.strictEqual('♥10', (new Card(Card.Suits.Heart, 10)).toString());
+    assert.strictEqual('♠J', (new Card(Card.Suits.Spade, 11)).toString());
+    assert.strictEqual('♣Q', (new Card(Card.Suits.Club, 12)).toString());
+    assert.strictEqual('♦K', (new Card(Card.Suits.Diamond, 13)).toString());
+    assert.strictEqual('jr', (new Card(Card.Suits.Joker, 1)).toString());
+    assert.strictEqual('JR', (new Card(Card.Suits.Joker, 2)).toString());
+  });
 });

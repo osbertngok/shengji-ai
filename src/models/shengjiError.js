@@ -12,6 +12,10 @@ class ShengjiErrorFactory {
     return new ShengjiError('Invalid Dealer Team');
   }
 
+  static invalidSortFunction() {
+    return new ShengjiError('Invalid Sort Function');
+  }
+
   static invalidSuit() {
     return new ShengjiError('Invalid Suit');
   }

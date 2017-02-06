@@ -39,6 +39,65 @@ class Card {
     }
   }
 
+  toString() {
+    if (this.suit === Card.Suits.Joker) {
+      switch (this.rank) {
+        case 1:
+          return 'jr';
+        case 2:
+          return 'JR';
+        default:
+          throw ShengjiErrorFactory.invalidRank();
+      }
+    } else {
+      let suitString, rankString;
+      switch (this.suit) {
+        case Card.Suits.Spade:
+          suitString = '♠';
+          break;
+        case Card.Suits.Heart:
+          suitString = '♥';
+          break;
+        case Card.Suits.Club:
+          suitString = '♣';
+          break;
+        case Card.Suits.Diamond:
+          suitString = '♦';
+          break;
+        default:
+          throw ShengjiErrorFactory.invalidSuit();
+      }
+      switch (this.rank) {
+        case 1:
+          rankString = 'A';
+          break;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+          rankString = this.rank.toString();
+          break;
+        case 11:
+          rankString = 'J';
+          break;
+        case 12:
+          rankString = 'Q';
+          break;
+        case 13:
+          rankString = 'K';
+          break;
+        default:
+          throw ShengjiErrorFactory.invalidRank();
+      }
+      return `${suitString}${rankString}`;
+    }
+  }
+
   validate(suit, rank) {
     switch (suit) {
       case Suits.Spade:
