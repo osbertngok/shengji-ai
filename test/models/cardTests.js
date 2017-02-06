@@ -53,4 +53,18 @@ describe('Card', () => {
     const index = Card.getIndex(Card.Suits.Heart, 5);
     assert.equal(17, index);
   });
+
+  it('Immutability Getter', () => {
+    const card = new Card(Card.Suits.Spade, 5);
+    assert.throws(() => {
+      card.suit = Card.Suits.Joker;
+    })
+  });
+
+  it('Immutability Frozen', () => {
+    const card = new Card(Card.Suits.Spade, 5);
+    assert.throws(() => {
+      card._suit = Card.Suits.Joker;
+    })
+  });
 });

@@ -41,6 +41,7 @@ class DeckedCard {
       this._deckNo = deckNo;
       this._card = new Card(suit, rank);
       existingDeck[index] = this;
+      Object.freeze(this);
       return this;
     }
   }

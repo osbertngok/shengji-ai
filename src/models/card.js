@@ -34,6 +34,7 @@ class Card {
       this._suit = suit;
       this._rank = rank;
       cardCollection[index] = this;
+      Object.freeze(this);
       return this;
     }
   }

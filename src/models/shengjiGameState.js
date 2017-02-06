@@ -18,6 +18,8 @@ class ShengjiGameState {
       this._dealer = config.dealer;
       this._dominantCard = config.dominantCard;
     }
+    Object.freeze(this);
+    return this;
   }
 
   static validate(config) {
