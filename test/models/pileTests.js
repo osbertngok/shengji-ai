@@ -46,7 +46,7 @@ describe('Pile', () => {
       new DeckedCard(2, Card.Suits.Club, 6),
       new DeckedCard(3, Card.Suits.Club, 7)
     ]);
-    const prettyPrintResult = pile.prettyPrint(ShengjiUtils.getDeckedCardSortFunc(shengjiGameState));
+    const prettyPrintResult = pile.prettyPrint(ShengjiUtils.compare.getDeckedCardSortFunc(shengjiGameState));
     assert.strictEqual('♠3 ♠Q ♠Q ♠A ♣3 ♣6 ♣6 ♣7 ♣7 ♣J ♦5 ♦9 ♦10 ♥3 ♥4 ♥5 ♥5 ♥6 ♥7 ♥K ♠2 ♥2 ♥2 jr JR', prettyPrintResult);
   });
 });

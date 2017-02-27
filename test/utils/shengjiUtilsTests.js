@@ -46,30 +46,30 @@ describe('Heart 2 Dominant Card Comparison', () =>  {
     const card1 = new DeckedCard(2, Card.Suits.Joker, 1);
     const card2 = new DeckedCard(1, Card.Suits.Joker, 2);
     const card3 = new DeckedCard(2, Card.Suits.Joker, 1);
-    assert.equal(-1, ShengjiUtils.compareJokerCards(card1, card2));
-    assert.equal(1, ShengjiUtils.compareJokerCards(card2, card1));
-    assert.equal(0, ShengjiUtils.compareJokerCards(card1, card3));
+    assert.equal(-1, ShengjiUtils.compare.compareJokerCards(card1, card2));
+    assert.equal(1, ShengjiUtils.compare.compareJokerCards(card2, card1));
+    assert.equal(0, ShengjiUtils.compare.compareJokerCards(card1, card3));
   });
 
   it('Same Suit Comparison', () => {
     const card1 = new DeckedCard(1, Card.Suits.Spade, 10);
     const card2 = new DeckedCard(1, Card.Suits.Spade, 11);
-    assert.equal(-1, ShengjiUtils.compareSameSuitDeckedCards(card1, card2));
-    assert.equal(1, ShengjiUtils.compareSameSuitDeckedCards(card2, card1));
+    assert.equal(-1, ShengjiUtils.compare.compareSameSuitDeckedCards(card1, card2));
+    assert.equal(1, ShengjiUtils.compare.compareSameSuitDeckedCards(card2, card1));
   });
 
   it('Ace Comparison', () => {
     const card1 = new DeckedCard(1, Card.Suits.Spade, 10);
     const card2 = new DeckedCard(1, Card.Suits.Spade, 1);
-    assert.equal(-1, ShengjiUtils.compareSameSuitDeckedCards(card1, card2));
-    assert.equal(1, ShengjiUtils.compareSameSuitDeckedCards(card2, card1));
+    assert.equal(-1, ShengjiUtils.compare.compareSameSuitDeckedCards(card1, card2));
+    assert.equal(1, ShengjiUtils.compare.compareSameSuitDeckedCards(card2, card1));
   });
 
   it('Different Suit Comparison', () => {
     const card1 = new DeckedCard(2, Card.Suits.Spade, 10);
     const card2 = new DeckedCard(1, Card.Suits.Diamond, 10);
-    assert.equal(-1, ShengjiUtils.compareNonDominantCards(card1, card2));
-    assert.equal(1, ShengjiUtils.compareNonDominantCards(card2, card1));
+    assert.equal(-1, ShengjiUtils.compare.compareNonDominantCards(card1, card2));
+    assert.equal(1, ShengjiUtils.compare.compareNonDominantCards(card2, card1));
   });
 
   it('sorting', () => {
@@ -89,7 +89,7 @@ describe('Heart 2 Dominant Card Comparison', () =>  {
       new DeckedCard(1, Card.Suits.Club, 8),
       new DeckedCard(1, Card.Suits.Heart, 9)
     ]);
-    pile.sort(ShengjiUtils.getDeckedCardSortFunc(shengjiGameState));
+    pile.sort(ShengjiUtils.compare.getDeckedCardSortFunc(shengjiGameState));
     [
       new DeckedCard(3, Card.Suits.Spade, 5),
       new DeckedCard(1, Card.Suits.Spade, 6),

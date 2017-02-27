@@ -1,13 +1,15 @@
 'use strict';
 
+const Card = require('../models/card');
+
 class ShengjiPredicates {
   /*
     Type: (ShengjiGameState, DeckedCard) => bool
   */
   static isDominantCard(shengjiGameState, deckedCard) {
-    return ShengjiUtils.isJoker(deckedCard) ||
-           ShengjiUtils.isDominantRank(shengjiGameState, deckedCard) ||
-           ShengjiUtils.isDominantSuit(shengjiGameState, deckedCard);
+    return ShengjiPredicates.isJoker(deckedCard) ||
+           ShengjiPredicates.isDominantRank(shengjiGameState, deckedCard) ||
+           ShengjiPredicates.isDominantSuit(shengjiGameState, deckedCard);
   }
 
   /*
