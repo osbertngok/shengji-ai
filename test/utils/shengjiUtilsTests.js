@@ -12,7 +12,7 @@ describe('Heart 2 Dominant Card Comparison', () =>  {
     'dominantCard': new Card(Card.Suits.Heart, 2),
     'dealerTeam': 1
   });
-  const comparisonFunc = ShengjiUtils.getDeckedCardSortFunc(shengjiGameState);
+  const comparisonFunc = ShengjiUtils.compare.getDeckedCardSortFunc(shengjiGameState);
 
   it('Non dominant card vs. Joker', () => {
     const card1 = new DeckedCard(1, Card.Suits.Club, 10);
