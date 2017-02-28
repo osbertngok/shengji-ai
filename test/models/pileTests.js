@@ -5,7 +5,7 @@ const Card = require('../../src/models/card');
 const DeckedCard = require('../../src/models/deckedCard');
 const Deck = require('../../src/models/deck');
 const Pile = require('../../src/models/pile');
-const ShengjiGameState = require('../../src/models/shengjiGameState');
+const ShengjiGameState = require('../../src/models/statemachines/shengjiGameState');
 const ShengjiUtils = require('../../src/utils/shengjiUtils');
 
 describe('Pile', () => {
