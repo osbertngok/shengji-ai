@@ -5,7 +5,7 @@
 
 const createStore = require('redux').createStore;
 
-const ShengjiErrorFactory = require('./../shengjiError');
+const ShengjiErrorFactory = require('./../errors/shengjiError');
 
 const ShengjiGameRootState = require('./shengjiGameRootState');
 

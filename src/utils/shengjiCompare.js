@@ -1,6 +1,6 @@
 'use strict';
 
-const Card = require('../models/card');
+const Card = require('../models/cards/card');
 
 const Predicates = require('./shengjiPredicates');
 

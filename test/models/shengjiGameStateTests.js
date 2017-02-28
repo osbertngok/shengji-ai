@@ -1,6 +1,6 @@
 'use strict';
 const assert = require('chai').assert;
-const Card = require('../../src/models/card');
+const Card = require('../../src/models/cards/card');
 const ShengjiGameState = require('../../src/models/statemachines/shengjiGameState');
 
 describe('GameState Immutability', () =>  {

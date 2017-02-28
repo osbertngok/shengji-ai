@@ -1,5 +1,5 @@
 'use strict';
-const ShengjiErrorFactory = require('./shengjiError');
+const ShengjiErrorFactory = require('./../errors/shengjiError');
 
 const Suits = {
   'Spade'   : 0,

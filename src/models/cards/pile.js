@@ -1,7 +1,7 @@
 'use strict';
 const Card = require('./card');
 const DeckedCard = require('./deckedCard');
-const ShengjiErrorFactory = require('./shengjiError');
+const ShengjiErrorFactory = require('./../errors/shengjiError');
 
 class Pile {
   constructor(arrayOfDeckedCards) {

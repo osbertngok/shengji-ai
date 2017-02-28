@@ -1,6 +1,6 @@
 'use strict';
 
-const ShengjiErrorFactory = require('./../shengjiError');
+const ShengjiErrorFactory = require('./../errors/shengjiError');
 
 class ShengjiGameState {
   constructor(config){

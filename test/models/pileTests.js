@@ -1,10 +1,10 @@
 'use strict';
 const assert = require('chai').assert;
 
-const Card = require('../../src/models/card');
-const DeckedCard = require('../../src/models/deckedCard');
-const Deck = require('../../src/models/deck');
-const Pile = require('../../src/models/pile');
+const Card = require('../../src/models/cards/card');
+const DeckedCard = require('../../src/models/cards/deckedCard');
+const Deck = require('../../src/models/cards/deck');
+const Pile = require('../../src/models/cards/pile');
 const ShengjiGameState = require('../../src/models/statemachines/shengjiGameState');
 const ShengjiUtils = require('../../src/utils/shengjiUtils');
 
