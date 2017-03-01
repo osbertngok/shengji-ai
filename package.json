@@ -1,0 +1,33 @@
+{
+  "name": "shengji-ai",
+  "version": "0.1.0",
+  "description": "Shengji game with AI",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osbertngok/shengji-ai.git"
+  },
+  "keywords": [
+    "shengji",
+    "poker",
+    "ai"
+  ],
+  "author": "Osbert Ngok",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/osbertngok/shengji-ai/issues"
+  },
+  "homepage": "https://github.com/osbertngok/shengji-ai#readme",
+  "dependencies": {
+    "immutable": "^3.8.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-mocha": "^3.0.1"
+  }
+}
