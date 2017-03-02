@@ -1,7 +1,6 @@
 'use strict';
-const assert = require('chai').assert;
-
 const ShengjiGameManager = require('../../../src/game/shengjiGameManager');
+const assert = require('chai').assert;
 const Players = require('../../../src/players/index');
 
 describe('load players process', () => {

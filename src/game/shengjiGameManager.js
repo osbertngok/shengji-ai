@@ -7,18 +7,19 @@ const redux = require('redux');
 
 const ShengjiErrorUtils = require('../errors/shengjiErrorUtils');
 
-const ShengjiGameRootState = require('./../models/statemachines/shengjiGameRootState');
+const ShengjiGameRootState = require('../models/statemachines/shengjiGameRootState');
 
 const Players = require('../players/index');
 
 
-const RoundActions = {
-    'InitializeNewRound': 0
+const GameActions = {
+    'InitializeNewGame': 0,
+    'InitializeNewRound': 1
 };
 
 class ShengjiGameManager {
     constructor() {
-        this.store = redux.createStore(ShengjiGameRootState.reducer);
+
     }
 
     dealCards() {
@@ -33,9 +34,16 @@ class ShengjiGameManager {
 
     }
 
+    initializeNewGame() {
+        this.store = redux.createStore(ShengjiGameManager.rootStateReducer);
+        this.store.dispatch({
+           'action': GameActions.InitializeNewGame
+        });
+    }
+
     initializeNewRound() {
         this.store.dispatch({
-            'action': RoundActions.InitializeNewRound
+            'action': GameActions.InitializeNewRound
         });
     }
 
@@ -60,6 +68,19 @@ class ShengjiGameManager {
                 throw ShengjiErrorUtils.invalidPlayer(`Player ${playerIndex}: ${ex.message}`);
             }
 
+        }
+    }
+
+    static rootStateReducer(state, action) {
+        if (!(action && action.action)) {
+            throw ShengjiErrorUtils.invalidAction();
+        }
+        switch (action.action) {
+            case GameActions.InitializeNewGame:
+
+                break;
+            default:
+                throw ShengjiErrorUtils.invalidAction(`Unknown action ${action.action}`);
         }
     }
 }

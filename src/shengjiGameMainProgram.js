@@ -15,6 +15,8 @@ game.loadPlayers([
     new Players.SimpleAIPlayer()]
 );
 
+game.initializeNewGame();
+
 game.initializeNewRound();
 
 game.dealCards();

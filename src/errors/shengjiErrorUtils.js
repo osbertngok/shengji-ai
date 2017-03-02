@@ -6,6 +6,10 @@ const ShengjiError = require('./shengjiError');
 
 class ShengjiErrorUtils {
 
+    static invalidAction() {
+        return new ShengjiError('Invalid Action');
+    }
+
     static invalidDealerTeam() {
         return new ShengjiError('Invalid Dealer Team');
     }
@@ -25,6 +29,8 @@ class ShengjiErrorUtils {
     static invalidRank() {
         return new ShengjiError('Invalid Rank');
     }
+
+
 }
 
 module.exports = ShengjiErrorUtils;
