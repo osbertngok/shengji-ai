@@ -38,6 +38,7 @@ class ShengjiGame {
             throw ShengjiErrorUtils.invalidPlayer('ShengjiGame.loadPlayers accepts 4 players only.');
         }
 
+        // Validate per player
         for (let playerIndex = 0; playerIndex < players.length; ++playerIndex) {
             const player = players[playerIndex];
             try {
