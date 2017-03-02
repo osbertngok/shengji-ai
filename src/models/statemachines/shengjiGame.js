@@ -13,7 +13,7 @@ const Players = require('../../players/index');
 
 
 const RoundActions = {
-    'InitializeNewRound'   : 0
+    'InitializeNewRound': 0
 };
 
 class ShengjiGame {
@@ -23,7 +23,7 @@ class ShengjiGame {
 
     initializeNewRound() {
         this.store.dispatch({
-           'action': RoundActions.InitializeNewRound
+            'action': RoundActions.InitializeNewRound
         });
     }
 
@@ -44,7 +44,7 @@ class ShengjiGame {
             try {
                 Players.validatePlayer(player);
             }
-            catch(ex) {
+            catch (ex) {
                 throw ShengjiErrorUtils.invalidPlayer(`Player ${playerIndex}: ${ex.message}`);
             }
 

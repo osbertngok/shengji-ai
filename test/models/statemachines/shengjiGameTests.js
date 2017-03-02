@@ -16,7 +16,7 @@ describe('load players process', () => {
         }, 'ShengjiGame.loadPlayers accepts an array of players.');
     });
 
-    it ('must be exactly 4 players', () => {
+    it('must be exactly 4 players', () => {
         const shengjiGame = new ShengjiGame();
 
         assert.throws(() => {
