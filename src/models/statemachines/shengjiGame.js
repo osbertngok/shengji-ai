@@ -33,13 +33,18 @@ class ShengjiGame {
             throw ShengjiErrorUtils.invalidPlayer('ShengjiGame.loadPlayers accepts an array of players.');
         }
 
+        // Currently only support 4 players
+        if (players.length !== 4) {
+            throw ShengjiErrorUtils.invalidPlayer('ShengjiGame.loadPlayers accepts 4 players only.');
+        }
+
         for (let playerIndex = 0; playerIndex < players.length; ++playerIndex) {
             const player = players[playerIndex];
             try {
                 Players.validatePlayer(player);
             }
             catch(ex) {
-                throw ShengjiErrorUtils.invalidPlayer(`Player ${playerIndex}: {ex.message}`);
+                throw ShengjiErrorUtils.invalidPlayer(`Player ${playerIndex}: ${ex.message}`);
             }
 
         }

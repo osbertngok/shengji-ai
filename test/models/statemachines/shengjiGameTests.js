@@ -15,4 +15,26 @@ describe('load players process', () => {
             shengjiGame.loadPlayers();
         }, 'ShengjiGame.loadPlayers accepts an array of players.');
     });
+
+    it ('must be exactly 4 players', () => {
+        const shengjiGame = new ShengjiGame();
+
+        assert.throws(() => {
+            shengjiGame.loadPlayers([
+                new Players.ConsolePlayer(),
+                new Players.ConsolePlayer(),
+                new Players.ConsolePlayer()
+            ]);
+        }, 'ShengjiGame.loadPlayers accepts 4 players only.');
+
+        assert.throws(() => {
+            shengjiGame.loadPlayers([
+                new Players.ConsolePlayer(),
+                new Players.ConsolePlayer(),
+                new Players.ConsolePlayer(),
+                new Players.ConsolePlayer(),
+                new Players.ConsolePlayer()
+            ]);
+        }, 'ShengjiGame.loadPlayers accepts 4 players only.');
+    });
 });
