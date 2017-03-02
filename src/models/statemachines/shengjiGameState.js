@@ -1,6 +1,6 @@
 'use strict';
 
-const ShengjiErrorFactory = require('./../errors/shengjiError');
+const ShengjiErrorUtils = require('./../errors/shengjiErrorUtils');
 
 class ShengjiGameState {
   constructor(config){
@@ -24,7 +24,7 @@ class ShengjiGameState {
 
   static validate(config) {
     if (config.dealerTeam !== 1 && config.dealerTeam !== 2) {
-      throw ShengjiErrorFactory.invalidDealerTeam();
+      throw ShengjiErrorUtils.invalidDealerTeam();
     }
   }
 
@@ -35,7 +35,7 @@ class ShengjiGameState {
       case 2:
         return this.team2Rank;
       default:
-        throw ShengjiErrorFactory.invalidDealerTeam();
+        throw ShengjiErrorUtils.invalidDealerTeam();
     }
   }
   

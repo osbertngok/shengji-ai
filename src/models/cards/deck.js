@@ -1,5 +1,5 @@
 'use strict';
-const ShengjiErrorFactory = require('./../errors/shengjiError');
+const ShengjiErrorUtils = require('./../errors/shengjiErrorUtils');
 
 const Card = require('./card');
 const DeckedCard = require('./deckedCard');

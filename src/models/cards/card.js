@@ -1,5 +1,5 @@
 'use strict';
-const ShengjiErrorFactory = require('./../errors/shengjiError');
+const ShengjiErrorUtils = require('./../errors/shengjiErrorUtils');
 
 const Suits = {
   'Spade'   : 0,
@@ -47,7 +47,7 @@ class Card {
         case 2:
           return 'JR';
         default:
-          throw ShengjiErrorFactory.invalidRank();
+          throw ShengjiErrorUtils.invalidRank();
       }
     } else {
       let suitString, rankString;
@@ -65,7 +65,7 @@ class Card {
           suitString = '♦';
           break;
         default:
-          throw ShengjiErrorFactory.invalidSuit();
+          throw ShengjiErrorUtils.invalidSuit();
       }
       switch (this.rank) {
         case 1:
@@ -92,7 +92,7 @@ class Card {
           rankString = 'K';
           break;
         default:
-          throw ShengjiErrorFactory.invalidRank();
+          throw ShengjiErrorUtils.invalidRank();
       }
       return `${suitString}${rankString}`;
     }
@@ -105,16 +105,16 @@ class Card {
       case Suits.Club:
       case Suits.Diamond:
           if (typeof rank !== 'number' || !Number.isInteger(rank) || rank < 1 || rank > 13) {
-              throw ShengjiErrorFactory.invalidRank();
+              throw ShengjiErrorUtils.invalidRank();
           }
         break;
       case Suits.Joker:
           if (typeof rank !== 'number' || !Number.isInteger(rank) || rank < 1 || rank > 2) {
-              throw ShengjiErrorFactory.invalidRank();
+              throw ShengjiErrorUtils.invalidRank();
           }
         break;
       default:
-        throw ShengjiErrorFactory.invalidSuit();
+        throw ShengjiErrorUtils.invalidSuit();
     }
   }
 

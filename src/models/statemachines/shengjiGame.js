@@ -5,7 +5,7 @@
 
 const createStore = require('redux').createStore;
 
-const ShengjiErrorFactory = require('./../errors/shengjiError');
+const ShengjiErrorUtils = require('./../errors/shengjiErrorUtils');
 
 const ShengjiGameRootState = require('./shengjiGameRootState');
 
@@ -23,6 +23,13 @@ class ShengjiGame {
         this.store.dispatch({
            'action': RoundActions.InitializeNewRound
         });
+    }
+
+    loadPlayers(players) {
+        // Assert players are array of valid players
+        if (!Array.isArray(players)) {
+            throw ShengjiErrorUtils.invalidPlayer('ShengjiGame.loadPlayers accepts an array of players.');
+        }
     }
 }
 

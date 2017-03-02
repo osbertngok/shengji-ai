@@ -1,7 +1,7 @@
 'use strict';
 const Card = require('./card');
 const DeckedCard = require('./deckedCard');
-const ShengjiErrorFactory = require('./../errors/shengjiError');
+const ShengjiErrorUtils = require('./../errors/shengjiErrorUtils');
 
 class Pile {
   constructor(arrayOfDeckedCards) {
@@ -50,7 +50,7 @@ class Pile {
     if (func === undefined) {
       this.deckedCards.sort(DeckedCard.compareTo);
     } else if (typeof func !== 'function') {
-      throw ShengjiErrorFactory.invalidSortFunction();
+      throw ShengjiErrorUtils.invalidSortFunction();
     } else {
       this.deckedCards.sort(func);
     }
