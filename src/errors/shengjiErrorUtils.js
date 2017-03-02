@@ -30,7 +30,9 @@ class ShengjiErrorUtils {
         return new ShengjiError('Invalid Rank');
     }
 
-
+    static invalidStateTransition(stateString, actionString) {
+        return new ShengjiError(`State ${stateString} cannot be processed with action ${actionString}.`);
+    }
 }
 
 module.exports = ShengjiErrorUtils;

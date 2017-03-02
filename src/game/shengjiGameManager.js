@@ -5,19 +5,49 @@
 
 const redux = require('redux');
 
+const constants = require('../constants/index');
+const EnumUtils = require('../utils/enumUtils');
 const ShengjiErrorUtils = require('../errors/shengjiErrorUtils');
-
 const ShengjiGameRootState = require('../models/statemachines/shengjiGameRootState');
-
 const Players = require('../players/index');
+const GameStatuses = require('../models/statemachines/shengjiGameStateStatus');
+const GameActionTypes = require('../models/statemachines/shengjiGameStateActionType');
 
+const gameStatusesToString = EnumUtils.getToEnumStringFunc(GameStatuses);
+const gameActionTypesToString = (actionType) => {
+    if (actionType === constants.redux.REDUX_INIT){
+        return 'REDUX_INIT';
+    }
 
-const GameActions = {
-    'InitializeNewGame': 0,
-    'InitializeNewRound': 1
+    return EnumUtils.getToEnumStringFunc(GameActionTypes)(actionType);
+};
+
+const checkStateTransitionPermission = (state, action) => {
+    if (!(action && action.hasOwnProperty('type'))) {
+        return !state;
+    }
+
+    switch (action.type) {
+        case constants.redux.REDUX_INIT:
+            return state === undefined;
+        case GameActionTypes.InitializeNewGame:
+            return [GameStatuses.GameCreated].indexOf(state.status) !== -1;
+        case GameActionTypes.LoadPlayers:
+            return [GameStatuses.PlayersLoaded].indexOf(state.status) !== -1;
+        case GameActionTypes.InitializeNewRound:
+            return [GameStatuses.GameStarted].indexOf(state.status) !== -1;
+        default:
+            // Unknown action type
+            return false;
+    }
+    return false;
 };
 
 class ShengjiGameManager {
+
+    get rootState() {
+        return this.store.getState();
+    }
     constructor() {
 
     }
@@ -37,13 +67,13 @@ class ShengjiGameManager {
     initializeNewGame() {
         this.store = redux.createStore(ShengjiGameManager.rootStateReducer);
         this.store.dispatch({
-           'action': GameActions.InitializeNewGame
+           'type': GameActionTypes.InitializeNewGame
         });
     }
 
     initializeNewRound() {
         this.store.dispatch({
-            'action': GameActions.InitializeNewRound
+            'type': GameActionTypes.InitializeNewRound
         });
     }
 
@@ -69,18 +99,36 @@ class ShengjiGameManager {
             }
 
         }
+
+        this.store.dispatch({
+            'type': GameActionTypes.LoadPlayers
+        });
     }
 
     static rootStateReducer(state, action) {
-        if (!(action && action.action)) {
-            throw ShengjiErrorUtils.invalidAction();
+        ShengjiGameManager.validateStateTransitionPermission(state, action);
+        if (!(action && action.type)) {
+            // Initialize a new State;
+            return new ShengjiGameRootState();
         }
-        switch (action.action) {
-            case GameActions.InitializeNewGame:
 
+        switch (action.type) {
+            case constants.redux.REDUX_INIT:
+                return new ShengjiGameRootState();
+            case GameActionTypes.InitializeNewGame:
+                break;
+            case GameActionTypes.LoadPlayers:
                 break;
             default:
-                throw ShengjiErrorUtils.invalidAction(`Unknown action ${action.action}`);
+                throw ShengjiErrorUtils.invalidAction(`Unknown action ${action.type}`);
+        }
+    }
+
+    static validateStateTransitionPermission(state, action) {
+        if (!checkStateTransitionPermission(state, action)) {
+            const stateString = state ? gameStatusesToString(state.status) : 'undefined_status';
+            const actionString = action ? gameActionTypesToString(action.type) : 'undefined_action';
+            throw ShengjiErrorUtils.invalidStateTransition(stateString, actionString);
         }
     }
 }

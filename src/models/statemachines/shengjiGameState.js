@@ -1,5 +1,6 @@
 'use strict';
 
+const ShengjiGameStateStatuses = require('./shengjiGameStateStatus');
 const ShengjiErrorUtils = require('../../errors/shengjiErrorUtils');
 
 class ShengjiGameState {
@@ -10,6 +11,7 @@ class ShengjiGameState {
             this._dealerTeam = 1;
             this._dealer = 0;
             this._dominantCard = null;
+            this._status = ShengjiGameStateStatuses.GameCreated;
         } else {
             ShengjiGameState.validate(config);
             this._team1Rank = config.team1Rank;
@@ -17,6 +19,7 @@ class ShengjiGameState {
             this._dealerTeam = config.dealerTeam;
             this._dealer = config.dealer;
             this._dominantCard = config.dominantCard;
+            this._status = config.status;
         }
         Object.freeze(this);
         return this;
@@ -57,6 +60,10 @@ class ShengjiGameState {
 
     get dominantCard() {
         return this._dominantCard;
+    }
+
+    get status() {
+        return this._status;
     }
 }
 

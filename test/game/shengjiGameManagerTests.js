@@ -1,7 +1,24 @@
 'use strict';
-const ShengjiGameManager = require('../../../src/game/shengjiGameManager');
+const ShengjiGameManager = require('../../src/game/shengjiGameManager');
 const assert = require('chai').assert;
-const Players = require('../../../src/players/index');
+const Players = require('../../src/players/index');
+
+describe('initialize new game', () => {
+    it('Check state is initialized', () => {
+        const shengjiGameManager = new ShengjiGameManager();
+        shengjiGameManager.initializeNewGame();
+        const state = shengjiGameManager.rootState.state;
+        assert.strictEqual(2, state.currentRank);
+        assert.strictEqual(2, state.currentRank);
+        assert.strictEqual(2, state.currentRank);
+        assert.strictEqual(2, state.currentRank);
+        assert.strictEqual(2, state.team1Rank);
+        assert.strictEqual(2, state.team2Rank);
+        assert.strictEqual(1, state.dealerTeam);
+        assert.strictEqual(0, state.dealer);
+        assert.strictEqual(null, state.dominantCard);
+    });
+});
 
 describe('load players process', () => {
     it('won\'t accept undefined', () => {
