@@ -4,9 +4,6 @@ const assert = require('chai').assert;
 const ShengjiGameManager = require('../../../src/game/shengjiGameManager');
 const Players = require('../../../src/players/index');
 
-const consolePlayer = new Players.ConsolePlayer();
-const simpleAIPlayer = new Players.SimpleAIPlayer();
-
 describe('load players process', () => {
     it('won\'t accept undefined', () => {
         const shengjiGameManager = new ShengjiGameManager();
