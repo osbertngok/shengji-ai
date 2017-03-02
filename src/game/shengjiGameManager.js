@@ -3,6 +3,7 @@
  */
 'use strict';
 
+const Pile = require('../models/cards/pile');
 const constants = require('../constants/index');
 const EnumUtils = require('../utils/enumUtils');
 const ShengjiErrorUtils = require('../errors/shengjiErrorUtils');
@@ -92,6 +93,9 @@ class ShengjiGameManager {
 
 
     initializeNewRound() {
+        // get 3 decks of playing cards and shuffle
+        this.stock = new Pile();
+        // Add 0, 1, 2 decks to stock pile
 
     }
 
