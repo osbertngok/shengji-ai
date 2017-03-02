@@ -3,8 +3,6 @@
  */
 'use strict';
 
-const redux = require('redux');
-
 const constants = require('../constants/index');
 const EnumUtils = require('../utils/enumUtils');
 const ShengjiErrorUtils = require('../errors/shengjiErrorUtils');
@@ -14,13 +12,7 @@ const GameStatuses = require('../models/statemachines/shengjiGameStateStatus');
 const GameActionTypes = require('../models/statemachines/shengjiGameStateActionType');
 
 const gameStatusesToString = EnumUtils.getToEnumStringFunc(GameStatuses);
-const gameActionTypesToString = (actionType) => {
-    if (actionType === constants.redux.REDUX_INIT){
-        return 'REDUX_INIT';
-    }
-
-    return EnumUtils.getToEnumStringFunc(GameActionTypes)(actionType);
-};
+const gameActionTypesToString = EnumUtils.getToEnumStringFunc(GameActionTypes);
 
 const checkStateTransitionPermission = (state, action) => {
     if (!(action && action.hasOwnProperty('type'))) {
@@ -46,10 +38,10 @@ const checkStateTransitionPermission = (state, action) => {
 class ShengjiGameManager {
 
     get rootState() {
-        return this.store.getState();
+        return this._rootState;
     }
     constructor() {
-
+        this._rootState = new ShengjiGameRootState();
     }
 
     dealCards() {
@@ -65,16 +57,9 @@ class ShengjiGameManager {
     }
 
     initializeNewGame() {
-        this.store = redux.createStore(ShengjiGameManager.rootStateReducer);
-        this.store.dispatch({
-           'type': GameActionTypes.InitializeNewGame
-        });
     }
 
     initializeNewRound() {
-        this.store.dispatch({
-            'type': GameActionTypes.InitializeNewRound
-        });
     }
 
     loadPlayers(players) {
