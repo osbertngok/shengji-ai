@@ -25,16 +25,16 @@ describe('Card', () => {
     it('Invalid Suit', () => {
         assert.throws(() => {
             const card1 = new Card(5, 1);
-        });
+        }, 'Invalid Suit');
     });
 
     it('Invalid Rank', () => {
         assert.throws(() => {
-            const card1 = new Card(Cards.Suits.Club, 14);
-        });
+            const card1 = new Card(Card.Suits.Club, 14);
+        }, 'Invalid Rank');
         assert.throws(() => {
-            const card1 = new Card(Cards.Suits.Joker, 3);
-        });
+            const card1 = new Card(Card.Suits.Joker, 3);
+        }, 'Invalid Rank');
     });
 
     it('Cards should be singleton', () => {
@@ -58,14 +58,14 @@ describe('Card', () => {
         const card = new Card(Card.Suits.Spade, 5);
         assert.throws(() => {
             card.suit = Card.Suits.Joker;
-        })
+        }, 'Cannot set property suit of [object Object] which has only a getter')
     });
 
     it('Immutability Frozen', () => {
         const card = new Card(Card.Suits.Spade, 5);
         assert.throws(() => {
             card._suit = Card.Suits.Joker;
-        })
+        }, 'Cannot assign to read only property \'_suit\' of [object Object]')
     });
 
     it('ToString', () => {
