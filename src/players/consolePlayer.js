@@ -4,7 +4,9 @@
 'use strict';
 
 class ConsolePlayer {
-
+    loadRootState(rootState) {
+        // TODO
+    }
 }
 
 module.exports = ConsolePlayer;

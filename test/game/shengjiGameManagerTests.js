@@ -6,6 +6,12 @@ const Players = require('../../src/players/index');
 describe('initialize new game', () => {
     it('Check state is initialized', () => {
         const shengjiGameManager = new ShengjiGameManager();
+        shengjiGameManager.loadPlayers([
+            new Players.ConsolePlayer(),
+            new Players.ConsolePlayer(),
+            new Players.ConsolePlayer(),
+            new Players.ConsolePlayer()
+        ]);
         shengjiGameManager.initializeNewGame();
         const state = shengjiGameManager.rootState.state;
         assert.strictEqual(2, state.currentRank);

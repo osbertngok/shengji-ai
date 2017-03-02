@@ -58,12 +58,13 @@ class ShengjiGameManager {
     }
 
     initializeNewGame() {
+        // Inform all players current state
+        for (let player of this.players) {
+            player.loadRootState(this.rootState);
+        }
     }
 
-    initializeNewRound() {
-    }
-
-    loadPlayers(players) {
+    validatePlayers(players) {
         // Assert players are array of valid players
         if (!Array.isArray(players)) {
             throw ShengjiErrorUtils.invalidPlayer('ShengjiGameManager.loadPlayers accepts an array of players.');
@@ -85,38 +86,28 @@ class ShengjiGameManager {
             }
 
         }
-
-        this.store.dispatch({
-            'type': GameActionTypes.LoadPlayers
-        });
     }
 
-    static rootStateReducer(state, action) {
-        ShengjiGameManager.validateStateTransitionPermission(state, action);
-        if (!(action && action.type)) {
-            // Initialize a new State;
-            return new ShengjiGameRootState();
-        }
+    initializeNewRound() {
 
-        switch (action.type) {
-            case constants.redux.REDUX_INIT:
-                return new ShengjiGameRootState();
-            case GameActionTypes.InitializeNewGame:
-                break;
-            case GameActionTypes.LoadPlayers:
-                break;
-            default:
-                throw ShengjiErrorUtils.invalidAction(`Unknown action ${action.type}`);
-        }
     }
 
-    static validateStateTransitionPermission(state, action) {
-        if (!checkStateTransitionPermission(state, action)) {
-            const stateString = state ? gameStatusesToString(state.status) : 'undefined_status';
-            const actionString = action ? gameActionTypesToString(action.type) : 'undefined_action';
-            throw ShengjiErrorUtils.invalidStateTransition(stateString, actionString);
+    get players() {
+        if (!this._players) {
+            throw ShengjiErrorUtils.invalidPlayer('Players not initialized.');
         }
+        return this._players;
     }
+
+    set players(players) {
+        this.validatePlayers(players);
+        this._players = players;
+    }
+
+    loadPlayers(players) {
+        this.players = players;
+    }
+
 }
 
 module.exports = ShengjiGameManager;
