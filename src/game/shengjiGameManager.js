@@ -5,18 +5,18 @@
 
 const redux = require('redux');
 
-const ShengjiErrorUtils = require('../../errors/shengjiErrorUtils');
+const ShengjiErrorUtils = require('../errors/shengjiErrorUtils');
 
-const ShengjiGameRootState = require('./shengjiGameRootState');
+const ShengjiGameRootState = require('./../models/statemachines/shengjiGameRootState');
 
-const Players = require('../../players/index');
+const Players = require('../players/index');
 
 
 const RoundActions = {
     'InitializeNewRound': 0
 };
 
-class ShengjiGame {
+class ShengjiGameManager {
     constructor() {
         this.store = redux.createStore(ShengjiGameRootState.reducer);
     }
@@ -42,12 +42,12 @@ class ShengjiGame {
     loadPlayers(players) {
         // Assert players are array of valid players
         if (!Array.isArray(players)) {
-            throw ShengjiErrorUtils.invalidPlayer('ShengjiGame.loadPlayers accepts an array of players.');
+            throw ShengjiErrorUtils.invalidPlayer('ShengjiGameManager.loadPlayers accepts an array of players.');
         }
 
         // Currently only support 4 players
         if (players.length !== 4) {
-            throw ShengjiErrorUtils.invalidPlayer('ShengjiGame.loadPlayers accepts 4 players only.');
+            throw ShengjiErrorUtils.invalidPlayer('ShengjiGameManager.loadPlayers accepts 4 players only.');
         }
 
         // Validate per player
@@ -64,4 +64,4 @@ class ShengjiGame {
     }
 }
 
-module.exports = ShengjiGame;
+module.exports = ShengjiGameManager;

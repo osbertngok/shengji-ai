@@ -2,7 +2,7 @@
  * Created by osbertngok on 28/2/2017.
  */
 
-const ShengjiGame = require('./models/statemachines/shengjiGame');
+const ShengjiGame = require('./game/shengjiGameManager');
 
 const game = new ShengjiGame();
 
