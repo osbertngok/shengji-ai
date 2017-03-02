@@ -21,6 +21,18 @@ class ShengjiGame {
         this.store = redux.createStore(ShengjiGameRootState.reducer);
     }
 
+    dealCards() {
+        // Check which player to draw cards first
+
+        // For each card:
+        // 1) Deal cards per person, and validate the return
+        // 2) Check if any other player respond
+
+        // Dealer collect the rest of the cards, and get back the same amount of cards
+        // Assuming Chao Di Pi is not supported
+
+    }
+
     initializeNewRound() {
         this.store.dispatch({
             'action': RoundActions.InitializeNewRound
