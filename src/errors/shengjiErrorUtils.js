@@ -6,10 +6,6 @@ const ShengjiError = require('./shengjiError');
 
 class ShengjiErrorUtils {
 
-    static invalidAction() {
-        return new ShengjiError('Invalid Action');
-    }
-
     static invalidDealerTeam() {
         return new ShengjiError('Invalid Dealer Team');
     }
@@ -28,10 +24,6 @@ class ShengjiErrorUtils {
 
     static invalidRank() {
         return new ShengjiError('Invalid Rank');
-    }
-
-    static invalidStateTransition(stateString, actionString) {
-        return new ShengjiError(`State ${stateString} cannot be processed with action ${actionString}.`);
     }
 }
 

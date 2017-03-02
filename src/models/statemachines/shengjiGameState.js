@@ -42,14 +42,6 @@ class ShengjiGameState {
         }
     }
 
-    get team1Rank() {
-        return this._team1Rank;
-    }
-
-    get team2Rank() {
-        return this._team2Rank;
-    }
-
     get dealerTeam() {
         return this._dealerTeam;
     }
@@ -65,6 +57,15 @@ class ShengjiGameState {
     get status() {
         return this._status;
     }
+
+    get team1Rank() {
+        return this._team1Rank;
+    }
+
+    get team2Rank() {
+        return this._team2Rank;
+    }
+
 }
 
 module.exports = ShengjiGameState;

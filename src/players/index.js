@@ -1,5 +1,7 @@
 /**
  * Created by osbertngok on 28/2/2017.
+ * Game Manager calls certain functions of the Player instance to convey new information
+ * or retrieve next move of the player.
  */
 'use strict';
 

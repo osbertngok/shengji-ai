@@ -37,34 +37,12 @@ const checkStateTransitionPermission = (state, action) => {
 
 class ShengjiGameManager {
 
-    get rootState() {
-        return this._rootState;
-    }
 
     constructor() {
         this._rootState = new ShengjiGameRootState();
     }
 
-    dealCards() {
-        // Check which player to draw cards first
-
-        // For each card:
-        // 1) Deal cards per person, and validate the return
-        // 2) Check if any other player respond
-
-        // Dealer collect the rest of the cards, and get back the same amount of cards
-        // Assuming Chao Di Pi is not supported
-
-    }
-
-    initializeNewGame() {
-        // Inform all players current state
-        for (let player of this.players) {
-            player.loadRootState(this.rootState);
-        }
-    }
-
-    validatePlayers(players) {
+    static validatePlayers(players) {
         // Assert players are array of valid players
         if (!Array.isArray(players)) {
             throw ShengjiErrorUtils.invalidPlayer('ShengjiGameManager.loadPlayers accepts an array of players.');
@@ -88,6 +66,31 @@ class ShengjiGameManager {
         }
     }
 
+    dealCards() {
+        // Check which player to draw cards first
+        const dealerIndex = this.rootState.state.dealer;
+
+        // For each card:
+        // 1) Deal cards per person, and validate the return
+        // 2) Check if any other player respond
+
+        // Dealer collect the rest of the cards, and get back the same amount of cards
+        // Assuming Chao Di Pi is not supported
+
+    }
+
+    loadPlayers(players) {
+        this.players = players;
+    }
+
+    initializeNewGame() {
+        // Inform all players current state
+        for (let player of this.players) {
+            player.loadRootState(this.rootState);
+        }
+    }
+
+
     initializeNewRound() {
 
     }
@@ -100,13 +103,15 @@ class ShengjiGameManager {
     }
 
     set players(players) {
-        this.validatePlayers(players);
+        ShengjiGameManager.validatePlayers(players);
         this._players = players;
     }
 
-    loadPlayers(players) {
-        this.players = players;
+
+    get rootState() {
+        return this._rootState;
     }
+
 
 }
 
