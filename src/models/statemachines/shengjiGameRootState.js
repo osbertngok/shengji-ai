@@ -4,7 +4,7 @@ const ShengjiGameState = require('./shengjiGameState');
 
 class ShengjiGameRootState {
 
-    constructor(){
+    constructor() {
         this._state = new ShengjiGameState();
     }
 

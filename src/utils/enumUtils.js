@@ -4,7 +4,7 @@
 'use strict';
 const getToEnumStringFunc = (dict) => {
     const reversedDict = [];
-    for(let prop in dict) {
+    for (let prop in dict) {
         if (dict.hasOwnProperty(prop)) {
             reversedDict[dict[prop]] = prop;
         }
@@ -19,5 +19,5 @@ const getToEnumStringFunc = (dict) => {
 };
 
 module.exports = {
-  'getToEnumStringFunc': getToEnumStringFunc
+    'getToEnumStringFunc': getToEnumStringFunc
 };

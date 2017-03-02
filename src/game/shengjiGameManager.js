@@ -40,6 +40,7 @@ class ShengjiGameManager {
     get rootState() {
         return this._rootState;
     }
+
     constructor() {
         this._rootState = new ShengjiGameRootState();
     }

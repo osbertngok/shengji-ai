@@ -3,5 +3,5 @@
  */
 'use strict';
 module.exports = {
-    'REDUX_INIT' : '@@redux/INIT'
+    'REDUX_INIT': '@@redux/INIT'
 };
