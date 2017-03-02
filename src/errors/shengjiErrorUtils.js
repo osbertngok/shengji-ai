@@ -2,7 +2,7 @@
  * Created by osbertngok on 2/3/2017.
  */
 'use strict';
-const ShengjiError = require('./ShengjiError');
+const ShengjiError = require('./shengjiError');
 
 class ShengjiErrorUtils {
 

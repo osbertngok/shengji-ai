@@ -1,5 +1,5 @@
 'use strict';
-const ShengjiErrorUtils = require('./../errors/shengjiErrorUtils');
+const ShengjiErrorUtils = require('../../errors/shengjiErrorUtils');
 
 const Suits = {
   'Spade'   : 0,

@@ -5,7 +5,7 @@
 
 const redux = require('redux');
 
-const ShengjiErrorUtils = require('./../errors/shengjiErrorUtils');
+const ShengjiErrorUtils = require('../../errors/shengjiErrorUtils');
 
 const ShengjiGameRootState = require('./shengjiGameRootState');
 
