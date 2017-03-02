@@ -8,7 +8,12 @@ const game = new ShengjiGame();
 
 const Players = require('./players/index');
 
-game.loadPlayers([Players.SimpleAIPlayer, Players.SimpleAIPlayer, Players.SimpleAIPlayer, Players.SimpleAIPlayer]);
+game.loadPlayers([
+    new Players.SimpleAIPlayer(),
+    new Players.SimpleAIPlayer(),
+    new Players.SimpleAIPlayer(),
+    new Players.SimpleAIPlayer()]
+);
 
 game.initializeNewRound();
 

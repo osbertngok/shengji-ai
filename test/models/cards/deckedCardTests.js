@@ -1,9 +1,9 @@
 'use strict';
 const assert = require('chai').assert;
 
-const Card = require('../../src/models/cards/card');
+const Card = require('../../../src/models/cards/card');
 
-const DeckedCard = require('../../src/models/cards/deckedCard');
+const DeckedCard = require('../../../src/models/cards/deckedCard');
 
 describe('DeckedCard', () =>  {
   it('DeckedCard constructor', () => {

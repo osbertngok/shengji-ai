@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('chai').assert;
 
-const Card = require('../../src/models/cards/card');
+const Card = require('../../../src/models/cards/card');
 
 describe('Suits', () =>  {
   it('Spade is 0', () => {

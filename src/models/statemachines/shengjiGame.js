@@ -3,11 +3,13 @@
  */
 'use strict';
 
-const createStore = require('redux').createStore;
+const redux = require('redux');
 
 const ShengjiErrorUtils = require('./../errors/shengjiErrorUtils');
 
 const ShengjiGameRootState = require('./shengjiGameRootState');
+
+const Players = require('../../players/index');
 
 
 const RoundActions = {
@@ -16,7 +18,7 @@ const RoundActions = {
 
 class ShengjiGame {
     constructor() {
-        this.store = createStore(new ShengjiGameRootState());
+        this.store = redux.createStore(ShengjiGameRootState.reducer);
     }
 
     initializeNewRound() {
@@ -29,6 +31,17 @@ class ShengjiGame {
         // Assert players are array of valid players
         if (!Array.isArray(players)) {
             throw ShengjiErrorUtils.invalidPlayer('ShengjiGame.loadPlayers accepts an array of players.');
+        }
+
+        for (let playerIndex = 0; playerIndex < players.length; ++playerIndex) {
+            const player = players[playerIndex];
+            try {
+                Players.validatePlayer(player);
+            }
+            catch(ex) {
+                throw ShengjiErrorUtils.invalidPlayer(`Player ${playerIndex}: {ex.message}`);
+            }
+
         }
     }
 }

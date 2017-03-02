@@ -11,7 +11,7 @@ class ShengjiErrorUtils {
     }
 
     static invalidPlayer(msg) {
-        return ShengjiError(msg);
+        return new ShengjiError(msg);
     }
 
     static invalidSortFunction() {
