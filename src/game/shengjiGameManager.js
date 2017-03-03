@@ -62,7 +62,7 @@ class ShengjiGameManager {
             let latestInformationProvider = currentPlayerIndex;
             let currentPotentialDeclarerPlayerIndex = (latestInformationProvider + 1) % this.rootState.state.noOfPlayers;
 
-            while (currentPotentialDeclarerPlayerIndex !== latestInformationProvider){
+            while (currentPotentialDeclarerPlayerIndex !== latestInformationProvider) {
                 //noinspection JSUnresolvedFunction
                 let currentDeclaration = latestInformationProvider === null ?
                     this.players[currentPlayerIndex].dealCard(dealtCard) :
@@ -76,7 +76,7 @@ class ShengjiGameManager {
                     this.rootState.state.declareDominantCards(currentPotentialDeclarerPlayerIndex, currentDeclaration);
                     lastDeclaration = currentDeclaration;
                     latestInformationProvider = currentPotentialDeclarerPlayerIndex;
-                    for (let playerIndex = 0; playerIndex < this.rootState.state.noOfPlayers; playerIndex++){
+                    for (let playerIndex = 0; playerIndex < this.rootState.state.noOfPlayers; playerIndex++) {
                         //noinspection JSUnresolvedFunction
                         this.players[playerIndex].informDominantCardDeclaration(currentPotentialDeclarerPlayerIndex, lastDeclaration);
                     }
@@ -87,7 +87,7 @@ class ShengjiGameManager {
         }
 
         // Joker will be the dominant card if
-        if (!this.rootState.state.isDominantCardDecalred()){
+        if (!this.rootState.state.isDominantCardDecalred()) {
             this.rootState.state.declareDominantCards();
         }
 

@@ -15,7 +15,7 @@ const intersection = (pile1, pile2) => {
     let pointer1 = 0;
     let pointer2 = 0;
     const unionDeckedCards = [];
-    while(pointer1 < sortedDeckedCards1.length && pointer2 < sortedDeckedCards2.length) {
+    while (pointer1 < sortedDeckedCards1.length && pointer2 < sortedDeckedCards2.length) {
         const deckedCard1 = sortedDeckedCards1[pointer1];
         const deckedCard2 = sortedDeckedCards2[pointer2];
         const compareResult = DeckedCard.compareTo(deckedCard1, deckedCard2);
@@ -32,8 +32,8 @@ const intersection = (pile1, pile2) => {
     return new Pile(unionDeckedCards);
 };
 
-const concat = function(pile1, pile2) {
-    if (!intersection(pile1, pile2).length){
+const concat = function (pile1, pile2) {
+    if (!intersection(pile1, pile2).length) {
         return new Pile([...pile1.deckedCards, ...pile2.deckedCards]);
     }
 }
