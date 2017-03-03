@@ -23,6 +23,7 @@ describe('initialize new game', () => {
         assert.strictEqual(1, state.dealerTeam);
         assert.strictEqual(0, state.dealer);
         assert.strictEqual(null, state.dominantCard);
+        assert.strictEqual(4, state.noOfPlayers);
     });
 });
 

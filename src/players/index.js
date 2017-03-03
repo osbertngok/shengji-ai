@@ -9,7 +9,10 @@ const ConsolePlayer = require('./consolePlayer');
 const SimpleAIPlayer = require('./simpleAIPlayer');
 const ShengjiErrorUtils = require('../errors/shengjiErrorUtils');
 
-const requiredPlayerFunctions = ['loadRootState'];
+const requiredPlayerFunctions = [
+    'loadRootState',
+    'informDominantCardDeclaration',
+    'respondToDominantCardDeclaration'];
 
 const validatePlayer = (player) => {
     // It needs to be an object

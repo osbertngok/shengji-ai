@@ -21,6 +21,7 @@ class ShengjiGameState {
             this._dominantCard = config.dominantCard;
             this._status = config.status;
         }
+        this._noOfPlayers = 4;
         Object.freeze(this);
         return this;
     }
@@ -52,6 +53,10 @@ class ShengjiGameState {
 
     get dominantCard() {
         return this._dominantCard;
+    }
+
+    get noOfPlayers() {
+        return this._noOfPlayers;
     }
 
     get status() {
