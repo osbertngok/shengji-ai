@@ -58,3 +58,13 @@ describe('load players process', () => {
         }, 'ShengjiGameManager.loadPlayers accepts 4 players only.');
     });
 });
+
+describe('deal cards', () => {
+    it('', () => {
+        const shengjiGameManager = new ShengjiGameManager();
+
+        assert.throws(() => {
+            shengjiGameManager.loadPlayers();
+        }, 'ShengjiGameManager.loadPlayers accepts an array of players.');
+    });
+});
