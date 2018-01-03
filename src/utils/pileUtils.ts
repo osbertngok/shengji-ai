@@ -5,20 +5,20 @@
 import {DeckedCard} from '../models/cards/deckedCard';
 import {Pile} from '../models/cards/pile';
 
-export const intersection = (pile1, pile2) => {
-  const sortedPile1 = pile1.clone();
-  const sortedPile2 = pile2.clone();
+export const intersection = (pile1: Pile, pile2: Pile): Pile => {
+  const sortedPile1: Pile = pile1.clone();
+  const sortedPile2: Pile = pile2.clone();
   sortedPile1.sort();
   sortedPile2.sort();
-  const sortedDeckedCards1 = sortedPile1.deckedCards;
-  const sortedDeckedCards2 = sortedPile2.deckedCards;
-  let pointer1 = 0;
-  let pointer2 = 0;
+  const sortedDeckedCards1: DeckedCard[] = sortedPile1.deckedCards;
+  const sortedDeckedCards2: DeckedCard[] = sortedPile2.deckedCards;
+  let pointer1: number = 0;
+  let pointer2: number = 0;
   const unionDeckedCards: DeckedCard[] = [];
   while (pointer1 < sortedDeckedCards1.length && pointer2 < sortedDeckedCards2.length) {
     const deckedCard1 = sortedDeckedCards1[pointer1];
     const deckedCard2 = sortedDeckedCards2[pointer2];
-    const compareResult = DeckedCard.compareTo(deckedCard1, deckedCard2);
+    const compareResult: number = DeckedCard.compareTo(deckedCard1, deckedCard2);
     if (compareResult === 0) {
       unionDeckedCards.push(deckedCard1);
       pointer1++;

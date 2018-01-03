@@ -1,10 +1,11 @@
 'use strict';
 
 import {Card, Suits} from '../models/cards/card';
-
 import {DeckedCard} from '../models/cards/deckedCard';
 import {ShengjiGameState} from '../models/statemachines/shengjiGameState';
 import {ShengjiPredicates as Predicates} from './shengjiPredicates';
+
+type DCCmpFunc = (dc1: DeckedCard, dc2: DeckedCard) => number;
 
 export class ShengjiCompare {
 
@@ -17,7 +18,7 @@ export class ShengjiCompare {
     // Jokers
     // Rank
     // Same Suit
-    const compareByJokerFunc =
+    const compareByJokerFunc: DCCmpFunc =
       ShengjiCompare.getDivideAndCompareFunc(
         Predicates.isJoker,
         (dc1: DeckedCard, dc2: DeckedCard) =>
@@ -40,53 +41,56 @@ export class ShengjiCompare {
     if (shengjiGameState.dominantCard === null) {
       throw new Error('dominant Card not exist');
     } else {
-      const currentRank = shengjiGameState.currentRank;
+      const currentRank: number = shengjiGameState.currentRank;
       if (currentRank === 14) {
         return ShengjiCompare.compareSameSuitDeckedCards(deckedCard1, deckedCard2);
       } else {
-        const compareFunc = ShengjiCompare.getDivideAndCompareFunc( deckedCard => {
-            return Predicates.isDominantRank(shengjiGameState, deckedCard);
-          },
-          (dc1: DeckedCard, dc2: DeckedCard) => {
-            return ShengjiCompare.compareSameSuitDeckedCards(dc1, dc2);
-          },
-          (dc1: DeckedCard, dc2: DeckedCard) => {
-            const dominantCard: Card = shengjiGameState.dominantCard as Card;
-            if (dominantCard.suit === Suits.Joker) {
-              const internalCompareFunc = ShengjiCompare.getHierarchicalCompareFunc([
-                (ddc1: DeckedCard, ddc2: DeckedCard) => {
-                  return ShengjiCompare.compareNumber(
-                    ddc1.card.suit,
-                    ddc2.card.suit
+        const compareFunc: DCCmpFunc =
+          ShengjiCompare.getDivideAndCompareFunc( deckedCard => {
+              return Predicates.isDominantRank(shengjiGameState, deckedCard);
+            },
+            (dc1: DeckedCard, dc2: DeckedCard) => {
+              return ShengjiCompare.compareSameSuitDeckedCards(dc1, dc2);
+            },
+            (dc1: DeckedCard, dc2: DeckedCard) => {
+              const dominantCard: Card = shengjiGameState.dominantCard as Card;
+              if (dominantCard.suit === Suits.Joker) {
+                const internalCompareFunc: (dc1: DeckedCard, dc2: DeckedCard) => number =
+                  ShengjiCompare.getHierarchicalCompareFunc([
+                    (ddc1: DeckedCard, ddc2: DeckedCard) => {
+                      return ShengjiCompare.compareNumber(
+                        ddc1.card.suit,
+                        ddc2.card.suit
+                      );
+                    },
+                    (ddc1: DeckedCard, ddc2: DeckedCard) => {
+                      return ShengjiCompare.compareNumber(
+                        ddc1.deckNo,
+                        ddc2.deckNo
+                      );
+                    }
+                  ]);
+                return internalCompareFunc(dc1, dc2);
+              } else {
+                const internalCompareFunc: DCCmpFunc =
+                  ShengjiCompare.getDivideAndCompareFunc( deckedCard =>
+                      Predicates.isDominantRank(shengjiGameState, deckedCard),
+                    ShengjiCompare.compareNonDominantCards,
+                    ShengjiCompare.getDivideAndCompareFunc( deckedCard => {
+                        return dominantCard.suit === deckedCard.card.suit;
+                      },
+                      (ddc1: DeckedCard, ddc2: DeckedCard) => {
+                        return ShengjiCompare.compareNonDominantCards(ddc1, ddc2);
+                      },
+                      (ddc1: DeckedCard, ddc2: DeckedCard) => {
+                        return ShengjiCompare.compareNumber(ddc1.deckNo, ddc2.deckNo);
+                      }
+                    )
                   );
-                },
-                (ddc1: DeckedCard, ddc2: DeckedCard) => {
-                  return ShengjiCompare.compareNumber(
-                    ddc1.deckNo,
-                    ddc2.deckNo
-                  );
-                }
-              ]);
-              return internalCompareFunc(dc1, dc2);
-            } else {
-              const internalCompareFunc = ShengjiCompare.getDivideAndCompareFunc( deckedCard =>
-                  Predicates.isDominantRank(shengjiGameState, deckedCard),
-                ShengjiCompare.compareNonDominantCards,
-                ShengjiCompare.getDivideAndCompareFunc( deckedCard => {
-                    return dominantCard.suit === deckedCard.card.suit;
-                  },
-                  (ddc1: DeckedCard, ddc2: DeckedCard) => {
-                    return ShengjiCompare.compareNonDominantCards(ddc1, ddc2);
-                  },
-                  (ddc1: DeckedCard, ddc2: DeckedCard) => {
-                    return ShengjiCompare.compareNumber(ddc1.deckNo, ddc2.deckNo);
-                  }
-                )
-              );
-              return internalCompareFunc(dc1, dc2);
+                return internalCompareFunc(dc1, dc2);
+              }
             }
-          }
-        );
+          );
         return compareFunc(deckedCard1, deckedCard2);
       }
     }
@@ -96,14 +100,15 @@ export class ShengjiCompare {
    Type: (DeckedCard, DeckedCard) => int
    */
   static compareJokerCards(deckedCard1: DeckedCard, deckedCard2: DeckedCard) {
-    const compareFunc = ShengjiCompare.getHierarchicalCompareFunc([
-      (dc1: DeckedCard, dc2: DeckedCard) => {
-        return ShengjiCompare.compareNumber(dc1.card.rank, dc2.card.rank);
-      },
-      (dc1: DeckedCard, dc2: DeckedCard) => {
-        return ShengjiCompare.compareNumber(dc1.deckNo, dc2.deckNo);
-      }
-    ]);
+    const compareFunc: DCCmpFunc =
+      ShengjiCompare.getHierarchicalCompareFunc([
+        (dc1: DeckedCard, dc2: DeckedCard) => {
+          return ShengjiCompare.compareNumber(dc1.card.rank, dc2.card.rank);
+        },
+        (dc1: DeckedCard, dc2: DeckedCard) => {
+          return ShengjiCompare.compareNumber(dc1.deckNo, dc2.deckNo);
+        }
+      ]);
     return compareFunc(deckedCard1, deckedCard2);
   }
 
@@ -112,19 +117,20 @@ export class ShengjiCompare {
    */
   static compareNonDominantCards(deckedCard1, deckedCard2) {
     // Also applicable to Jokers
-    const compareFunc = ShengjiCompare.getHierarchicalCompareFunc([
-      (dc1: DeckedCard, dc2: DeckedCard) => {
-        return ShengjiCompare.compareNumber(dc1.card.suit, dc2.card.suit);
-      },
-      ShengjiCompare.compareSameSuitDeckedCards
-    ]);
+    const compareFunc: DCCmpFunc =
+      ShengjiCompare.getHierarchicalCompareFunc([
+        (dc1: DeckedCard, dc2: DeckedCard) => {
+          return ShengjiCompare.compareNumber(dc1.card.suit, dc2.card.suit);
+        },
+        ShengjiCompare.compareSameSuitDeckedCards
+      ]);
     return compareFunc(deckedCard1, deckedCard2);
   }
 
   /*
    Type: (int, int) => int
    */
-  static compareNumber(num1, num2) {
+  static compareNumber(num1: number, num2: number): number {
     if (num1 < num2) {
       return -1;
     } else if (num1 > num2) {
@@ -137,21 +143,22 @@ export class ShengjiCompare {
   /*
    Type: (DeckedCard, DeckedCard) => int
    */
-  static compareSameSuitDeckedCards(deckedCard1, deckedCard2) {
-    const compareFunc = ShengjiCompare.getHierarchicalCompareFunc([
-      (dc1: DeckedCard, dc2: DeckedCard) => {
-        let shiftedWeight1 = dc1.card.rank;
-        let shiftedWeight2 = dc2.card.rank;
-        if (dc1.card.suit !== Suits.Joker) {
-          shiftedWeight1 = (shiftedWeight1 + 11) % 13;
-          shiftedWeight2 = (shiftedWeight2 + 11) % 13;
+  static compareSameSuitDeckedCards(deckedCard1: DeckedCard, deckedCard2: DeckedCard): number {
+    const compareFunc: DCCmpFunc =
+      ShengjiCompare.getHierarchicalCompareFunc([
+        (dc1: DeckedCard, dc2: DeckedCard) => {
+          let shiftedWeight1: number = dc1.card.rank;
+          let shiftedWeight2: number = dc2.card.rank;
+          if (dc1.card.suit !== Suits.Joker) {
+            shiftedWeight1 = (shiftedWeight1 + 11) % 13;
+            shiftedWeight2 = (shiftedWeight2 + 11) % 13;
+          }
+          return ShengjiCompare.compareNumber(shiftedWeight1, shiftedWeight2);
+        },
+        (dc1: DeckedCard, dc2: DeckedCard) => {
+          return ShengjiCompare.compareNumber(dc1.deckNo, dc2.deckNo);
         }
-        return ShengjiCompare.compareNumber(shiftedWeight1, shiftedWeight2);
-      },
-      (dc1: DeckedCard, dc2: DeckedCard) => {
-        return ShengjiCompare.compareNumber(dc1.deckNo, dc2.deckNo);
-      }
-    ]);
+      ]);
     return compareFunc(deckedCard1, deckedCard2);
   }
 
@@ -159,7 +166,7 @@ export class ShengjiCompare {
    Type: (ShengjiGameState) =>
    (DeckedCard, DeckedCard) => int
    */
-  static getDeckedCardSortFunc(shengjiGameState) {
+  static getDeckedCardSortFunc(shengjiGameState: ShengjiGameState): DCCmpFunc {
     return (deckedCard1, deckedCard2) => {
       const currentRank = shengjiGameState.currentRank;
       if (currentRank === 14) {
@@ -181,8 +188,8 @@ export class ShengjiCompare {
       // Dominant Suit, Dominant Rank
       // Black Jokers
       // Red Jokers
-      const compareByDominantCardFunc =
-        ShengjiCompare.getDivideAndCompareFunc( deckedCard =>
+      const compareByDominantCardFunc: DCCmpFunc =
+        ShengjiCompare.getDivideAndCompareFunc( (deckedCard: DeckedCard) =>
             Predicates.isDominantCard(shengjiGameState, deckedCard),
           ShengjiCompare.compareNonDominantCards,
           (dc1: DeckedCard, dc2: DeckedCard) =>
@@ -198,10 +205,12 @@ export class ShengjiCompare {
    Type: (DeckedCard => bool, (DeckedCard, DeckedCard) => int, (DeckedCard, DeckedCard) => int) =>
    (DeckedCard, DeckedCard) => int
    */
-  static getDivideAndCompareFunc(predicateFunc, falseCompareFunc, trueCompareFunc) {
-    return (deckedCard1, deckedCard2) => {
-      const predicateResult1 = predicateFunc(deckedCard1);
-      const predicateResult2 = predicateFunc(deckedCard2);
+  static getDivideAndCompareFunc(predicateFunc: (dc: DeckedCard) => boolean,
+                                 falseCompareFunc: DCCmpFunc,
+                                 trueCompareFunc: DCCmpFunc) {
+    return (deckedCard1: DeckedCard, deckedCard2: DeckedCard) => {
+      const predicateResult1: boolean = predicateFunc(deckedCard1);
+      const predicateResult2: boolean = predicateFunc(deckedCard2);
       if (!predicateResult1 && !predicateResult2) {
         return falseCompareFunc(deckedCard1, deckedCard2);
       } else if (!predicateResult1 && predicateResult2) {
@@ -218,13 +227,13 @@ export class ShengjiCompare {
    Type: (((DeckedCard, DeckedCard) => int)[]) =>
    (DeckedCard, DeckedCard) => int
    */
-  static getHierarchicalCompareFunc(compareFuncArray) {
-    return (deckedCard1, deckedCard2) => {
+  static getHierarchicalCompareFunc(compareFuncArray: DCCmpFunc[]): DCCmpFunc {
+    return (deckedCard1: DeckedCard, deckedCard2: DeckedCard) => {
       // Belts and Braces
       if (compareFuncArray.length) {
-        const compareFunc = compareFuncArray[0];
-        const compareResult = compareFunc(deckedCard1, deckedCard2);
-        if (compareResult) {
+        const compareFunc: (dc1: DeckedCard, dc2: DeckedCard) => number = compareFuncArray[0];
+        const compareResult: number = compareFunc(deckedCard1, deckedCard2);
+        if (compareResult !== 0) {
           return compareResult;
         } else {
           return ShengjiCompare.getHierarchicalCompareFunc(compareFuncArray.slice(1))(

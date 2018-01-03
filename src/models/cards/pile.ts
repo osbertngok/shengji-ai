@@ -14,11 +14,11 @@ export class Pile {
     return this;
   }
 
-  addCard(deckedCard) {
+  addCard(deckedCard: DeckedCard): void {
     this._deckedCards.push(deckedCard);
   }
 
-  clone() {
+  clone(): Pile {
     return new Pile(this.deckedCards);
   }
 
@@ -31,7 +31,7 @@ export class Pile {
     }
   }
 
-  prettyPrint(shengjiGameState) {
+  prettyPrint(shengjiGameState): string {
     const pileForPrettyPrint = this.clone();
     pileForPrettyPrint.sort(shengjiGameState);
     return pileForPrettyPrint.deckedCards
@@ -39,7 +39,7 @@ export class Pile {
       .join(' ');
   }
 
-  shuffle() {
+  shuffle(): void {
     let remainExchanges = this._deckedCards.length;
     while (remainExchanges) {
       const randomIndex = Math.floor(Math.random() * remainExchanges);
@@ -51,7 +51,7 @@ export class Pile {
     }
   }
 
-  sort(func) {
+  sort(func?: (dc1: DeckedCard, dc2: DeckedCard) => number): void {
     if (func === undefined) {
       this.deckedCards.sort(DeckedCard.compareTo);
     } else if (typeof func !== 'function') {
@@ -61,11 +61,11 @@ export class Pile {
     }
   }
 
-  get deckedCards() {
+  get deckedCards(): DeckedCard[] {
     return this._deckedCards;
   }
 
-  get length() {
+  get length(): number {
     if (!this._deckedCards) {
       return 0;
     }
@@ -73,3 +73,8 @@ export class Pile {
     return this._deckedCards.length;
   }
 }
+
+export const isPile = (pile: any): pile is Pile  => {
+  return pile && (pile as Pile).dealCard !== undefined
+    && (pile as Pile).shuffle !== undefined;
+};

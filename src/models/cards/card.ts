@@ -1,17 +1,15 @@
 'use strict';
 import {ShengjiErrorUtils} from '../../errors/shengjiErrorUtils';
 
-// tslint:disable:object-literal-sort-keys
-export const Suits = {
-  Spade: 0,
-  Heart: 1,
-  Club: 2,
-  Diamond: 3,
-  Joker: 4
-};
-// tslint:enable:object-literal-sort-keys
+export enum Suits {
+  Spade = 0,
+  Heart = 1,
+  Club = 2,
+  Diamond = 3,
+  Joker = 4
+}
 
-const cardCollection = Array(54);
+const cardCollection: Card[] = Array(54);
 
 export class Card {
 
@@ -19,22 +17,42 @@ export class Card {
 
   private _rank: number;
 
-  constructor(suit, rank) {
-    this.validate(suit, rank);
+  constructor(suit: Suits, rank: number) {
+    Card.validate(suit, rank);
     return this.getOrCreate(suit, rank);
   }
 
-  static getIndex(suit, rank) {
+  static getIndex(suit: Suits, rank: number): number {
     return suit * 13 + rank - 1;
   }
 
-  getIndex() {
+  static validate(suit: Suits, rank: number) {
+    switch (suit) {
+      case Suits.Spade:
+      case Suits.Heart:
+      case Suits.Club:
+      case Suits.Diamond:
+        if (typeof rank !== 'number' || !Number.isInteger(rank) || rank < 1 || rank > 13) {
+          throw ShengjiErrorUtils.invalidRank();
+        }
+        break;
+      case Suits.Joker:
+        if (typeof rank !== 'number' || !Number.isInteger(rank) || rank < 1 || rank > 2) {
+          throw ShengjiErrorUtils.invalidRank();
+        }
+        break;
+      default:
+        throw ShengjiErrorUtils.invalidSuit();
+    }
+  }
+
+  getIndex(): number {
     return Card.getIndex(this.suit, this.rank);
   }
 
-  getOrCreate(suit, rank) {
-    const index = Card.getIndex(suit, rank);
-    const existingCard = cardCollection[index];
+  getOrCreate(suit, rank): Card {
+    const index: number = Card.getIndex(suit, rank);
+    const existingCard: Card | undefined = cardCollection[index];
     if (existingCard) {
       return existingCard;
     } else {
@@ -46,7 +64,7 @@ export class Card {
     }
   }
 
-  toString() {
+  toString(): string {
     if (this.suit === Suits.Joker) {
       switch (this.rank) {
         case 1:
@@ -57,8 +75,8 @@ export class Card {
           throw ShengjiErrorUtils.invalidRank();
       }
     } else {
-      let suitString;
-      let rankString;
+      let suitString: string;
+      let rankString: string;
       switch (this.suit) {
         case Suits.Spade:
           suitString = '♠';
@@ -106,31 +124,11 @@ export class Card {
     }
   }
 
-  validate(suit, rank) {
-    switch (suit) {
-      case Suits.Spade:
-      case Suits.Heart:
-      case Suits.Club:
-      case Suits.Diamond:
-        if (typeof rank !== 'number' || !Number.isInteger(rank) || rank < 1 || rank > 13) {
-          throw ShengjiErrorUtils.invalidRank();
-        }
-        break;
-      case Suits.Joker:
-        if (typeof rank !== 'number' || !Number.isInteger(rank) || rank < 1 || rank > 2) {
-          throw ShengjiErrorUtils.invalidRank();
-        }
-        break;
-      default:
-        throw ShengjiErrorUtils.invalidSuit();
-    }
-  }
-
-  get suit() {
+  get suit(): Suits {
     return this._suit;
   }
 
-  get rank() {
+  get rank(): number {
     return this._rank;
   }
 }

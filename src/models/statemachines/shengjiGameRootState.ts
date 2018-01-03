@@ -1,6 +1,7 @@
 'use strict';
 
 import {ShengjiGameState} from './shengjiGameState';
+import {GameStatuses as ShengjiGameStateStatuses} from './shengjiGameStateStatus';
 
 export class ShengjiGameRootState {
 
@@ -10,11 +11,11 @@ export class ShengjiGameRootState {
     this._state = new ShengjiGameState();
   }
 
-  get state() {
+  get state(): ShengjiGameState {
     return this._state;
   }
 
-  get status() {
+  get status(): ShengjiGameStateStatuses {
     return this.state.status;
   }
 }

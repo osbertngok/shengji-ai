@@ -24,33 +24,33 @@ describe('Suits', () => {
 describe('Card', () => {
   it('Invalid Suit', () => {
     assert.throws(() => {
-      const card1 = new Card(5, 1);
+      const card1: Card = new Card(5, 1);
     }, 'Invalid Suit');
   });
 
   it('Invalid Rank', () => {
     assert.throws(() => {
-      const card1 = new Card(Suits.Club, 14);
+      const card1: Card = new Card(Suits.Club, 14);
     }, 'Invalid Rank');
     assert.throws(() => {
-      const card1 = new Card(Suits.Joker, 3);
+      const card1: Card = new Card(Suits.Joker, 3);
     }, 'Invalid Rank');
   });
 
   it('Cards should be singleton', () => {
-    const card1 = new Card(Suits.Spade, 5);
-    const card2 = new Card(Suits.Spade, 5);
+    const card1: Card = new Card(Suits.Spade, 5);
+    const card2: Card = new Card(Suits.Spade, 5);
     assert.strictEqual(card1, card2);
   });
 
   it('Different Cards should be different', () => {
-    const card1 = new Card(Suits.Spade, 5);
-    const card2 = new Card(Suits.Heart, 5);
+    const card1: Card = new Card(Suits.Spade, 5);
+    const card2: Card = new Card(Suits.Heart, 5);
     assert.notStrictEqual(card1, card2);
   });
 
   it('Heart 5 should be of index 18', () => {
-    const index = Card.getIndex(Suits.Heart, 5);
+    const index: number = Card.getIndex(Suits.Heart, 5);
     assert.equal(17, index);
   });
 

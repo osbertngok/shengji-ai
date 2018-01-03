@@ -4,7 +4,7 @@
 
 import {ShengjiGameManager as ShengjiGame} from './game/shengjiGameManager';
 
-const game = new ShengjiGame();
+const game: ShengjiGame = new ShengjiGame();
 
 import * as Players from './players/index';
 

@@ -11,7 +11,7 @@ import * as PileUtils from '../../src/utils/pileUtils';
 
 describe('Intersection Test', () => {
   it('1 intersection', () => {
-    const pile1 = new Pile([
+    const pile1: Pile = new Pile([
       new DeckedCard(1, Suits.Diamond, 12),
       new DeckedCard(2, Suits.Diamond, 1),
       new DeckedCard(2, Suits.Diamond, 4),
@@ -25,7 +25,7 @@ describe('Intersection Test', () => {
       new DeckedCard(1, Suits.Heart, 9)
     ]);
 
-    const pile2 = new Pile([
+    const pile2: Pile = new Pile([
       new DeckedCard(2, Suits.Diamond, 12),
       new DeckedCard(2, Suits.Diamond, 1),
       new DeckedCard(3, Suits.Diamond, 4),
@@ -39,7 +39,7 @@ describe('Intersection Test', () => {
       new DeckedCard(2, Suits.Heart, 9)
     ]);
 
-    const intersectionPile = PileUtils.intersection(pile1, pile2);
+    const intersectionPile: Pile = PileUtils.intersection(pile1, pile2);
     assert.strictEqual(1, intersectionPile.length);
     assert.strictEqual(new DeckedCard(2, Suits.Diamond, 1), intersectionPile.deckedCards[0]);
   });

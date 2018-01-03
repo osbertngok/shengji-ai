@@ -2,12 +2,17 @@
  * Created by osbertngok on 3/3/2017.
  */
 
-import {Pile} from '../models/cards/pile';
+import {Card, Suits} from '../models/cards/card';
+import {DeckedCard} from '../models/cards/deckedCard';
+import {isPile, Pile} from '../models/cards/pile';
+import {ShengjiGameState} from '../models/statemachines/shengjiGameState';
 import * as ShengjiUtils from './shengjiUtils';
 
-export const isDominantCardsDeclarationValid = (potentialDeclaration, shengjiGameState, currentDeclaration) => {
+export const isDominantCardsDeclarationValid = (potentialDeclaration: Pile | null,
+                                                shengjiGameState: ShengjiGameState,
+                                                currentDeclaration: Pile | null): boolean => {
   // potentialDeclaration must be a pile of at least 1 DeckedCards
-  if (!potentialDeclaration || potentialDeclaration.prototype.constructor !== Pile) {
+  if (!potentialDeclaration || !isPile(potentialDeclaration)) {
     return false;
   }
 
@@ -16,29 +21,30 @@ export const isDominantCardsDeclarationValid = (potentialDeclaration, shengjiGam
   }
 
   // Must be of the same suit / rank
-  let suit = null;
-  let rank = null;
+  let suit: Suits | null = null;
+  let rank: number | null = null;
   for (const deckedCard of potentialDeclaration.deckedCards) {
+    const card: Card = deckedCard.card;
     if (suit === null && rank === null) {
-      suit = deckedCard.suit;
-      rank = deckedCard.rank;
+      suit = card.suit;
+      rank = card.rank;
       continue;
     }
 
-    if (suit !== deckedCard.suit) {
+    if (suit !== card.suit) {
       return false;
     }
 
-    if (rank !== deckedCard.rank) {
+    if (rank !== card.rank) {
       return false;
     }
   }
-  const firstDeckedCard = potentialDeclaration.deckedCards[0];
+  const firstDeckedCard: DeckedCard = potentialDeclaration.deckedCards[0];
   if (!ShengjiUtils.predicates.isJoker(firstDeckedCard) &&
     !ShengjiUtils.predicates.isDominantRank(shengjiGameState, firstDeckedCard)) {
     return false;
   }
 
-  const noOfDeckedCardsInCurrentDeclaration = currentDeclaration ? currentDeclaration.deckedCards.length : 0;
-
+  const noOfDeckedCardsInCurrentDeclaration: number = currentDeclaration ? currentDeclaration.deckedCards.length : 0;
+  throw new Error('Not Implemented');
 };

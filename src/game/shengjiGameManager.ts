@@ -24,7 +24,7 @@ export class ShengjiGameManager {
     this._rootState = new ShengjiGameRootState();
   }
 
-  validatePlayers(players) {
+  validatePlayers(players: Players.IPlayer[]): void {
     // Assert players are array of valid players
     if (!Array.isArray(players)) {
       throw ShengjiErrorUtils.invalidPlayer('ShengjiGameManager.loadPlayers accepts an array of players.');
@@ -38,7 +38,7 @@ export class ShengjiGameManager {
     }
 
     // Validate per player
-    for (let playerIndex = 0; playerIndex < players.length; ++playerIndex) {
+    for (let playerIndex: number = 0; playerIndex < players.length; ++playerIndex) {
       const player = players[playerIndex];
       try {
         Players.validatePlayer(player);
@@ -49,31 +49,30 @@ export class ShengjiGameManager {
     }
   }
 
-  dealCards() {
+  dealCards(): void {
     // Check which player to draw cards first
-    const dealerIndex = this.rootState.state.dealer;
-    let currentPlayerIndex = dealerIndex;
+    const dealerIndex: number = this.rootState.state.dealer;
+    let currentPlayerIndex: number = dealerIndex;
 
-    const bottomCardsNo = 6; // when playing with 3 decks
+    const bottomCardsNo: number = 6; // when playing with 3 decks
 
     // For each card:
 
     while (this.stockPile.length > bottomCardsNo) {
       const dealtCard: DeckedCard = this.stockPile.dealCard();
-      let lastDeclaration = null;
-      let latestInformationProvider = currentPlayerIndex;
-      let currentPotentialDeclarerPlayerIndex =
+      let lastDeclaration: DeckedCard | null = null;
+      let latestInformationProvider: number = currentPlayerIndex;
+      let currentPotentialDeclarerPlayerIndex: number =
         (latestInformationProvider + 1) % this.rootState.state.noOfPlayers;
 
       while (currentPotentialDeclarerPlayerIndex !== latestInformationProvider) {
-        //noinspection JSUnresolvedFunction
-        const currentDeclaration = latestInformationProvider === null ?
+        const currentDeclaration: DeckedCard | null = latestInformationProvider === null ?
           this.players[currentPlayerIndex].dealCard(dealtCard) :
           this.players[currentPotentialDeclarerPlayerIndex].respondToDominantCardDeclaration(
             latestInformationProvider,
             lastDeclaration
           );
-        if (currentDeclaration) {
+        if (currentDeclaration !== null) {
           this.validateDeclaration(currentPotentialDeclarerPlayerIndex, currentDeclaration);
           // If it is valid
           this.rootState.state.declareDominantCards(currentPotentialDeclarerPlayerIndex, currentDeclaration);
@@ -96,24 +95,24 @@ export class ShengjiGameManager {
     }
 
     // Dealer collect the rest of the cards, and get back the same amount of cards
-    const bottomPile = this.players[this.rootState.state.dealer].processBottomPile(this.stockPile.clone());
+    const bottomPile: Pile = this.players[this.rootState.state.dealer].processBottomPile(this.stockPile.clone());
     this.validateBottomPile(bottomPile, this.rootState.state.dealer, this.stockPile);
     // Assuming Chao Di Pi is not supported
 
   }
 
-  loadPlayers(players) {
+  loadPlayers(players: Players.IPlayer[]): void {
     this.players = players;
   }
 
-  initializeNewGame() {
+  initializeNewGame(): void {
     // Inform all players current state
     for (const player of this.players) {
       player.loadRootState(this.rootState);
     }
   }
 
-  initializeNewRound() {
+  initializeNewRound(): void {
     // get 3 decks of playing cards and shuffle
     // Add 0, 1, 2 decks to stock pile
     const stockPile: Pile =
@@ -122,7 +121,7 @@ export class ShengjiGameManager {
     this.stockPile = stockPile;
   }
 
-  get players() {
+  get players(): Players.IPlayer[] {
     if (!this._players) {
       throw ShengjiErrorUtils.invalidPlayer('Players not initialized.');
     }
@@ -134,7 +133,7 @@ export class ShengjiGameManager {
     this._players = players;
   }
 
-  get stockPile() {
+  get stockPile(): Pile {
     return this._stockPile;
   }
 
@@ -142,11 +141,11 @@ export class ShengjiGameManager {
     this._stockPile = stockPile;
   }
 
-  get rootState() {
+  get rootState(): ShengjiGameRootState {
     return this._rootState;
   }
 
-  validateDeclaration(currentPlayerIndex, lastDeclaration) {
+  validateDeclaration(currentPlayerIndex: number, lastDeclaration: DeckedCard): void {
     return;
   }
 

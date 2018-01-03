@@ -2,6 +2,7 @@
 
 import {ShengjiErrorUtils} from '../../errors/shengjiErrorUtils';
 import {Card} from '../cards/card';
+import {DeckedCard} from '../cards/deckedCard';
 import {GameStatuses as ShengjiGameStateStatuses} from './shengjiGameStateStatus';
 
 export interface IShengjiGameStateConfiguration {
@@ -10,7 +11,7 @@ export interface IShengjiGameStateConfiguration {
   dealerTeam: number;
   dealer: number;
   dominantCard: Card | null;
-  status: number;
+  status: ShengjiGameStateStatuses;
 }
 
 export class ShengjiGameState {
@@ -20,7 +21,7 @@ export class ShengjiGameState {
   private _dealerTeam: number;
   private _dealer: number;
   private _dominantCard: Card | null;
-  private _status: number;
+  private _status: ShengjiGameStateStatuses;
   private _noOfPlayers: number;
 
   constructor(config?: IShengjiGameStateConfiguration) {
@@ -78,7 +79,7 @@ export class ShengjiGameState {
     return this._noOfPlayers;
   }
 
-  get status(): number {
+  get status(): ShengjiGameStateStatuses {
     return this._status;
   }
 
@@ -90,7 +91,7 @@ export class ShengjiGameState {
     return this._team2Rank;
   }
 
-  declareDominantCards(currentPotentialDeclarerPlayerIndex: number, currentDeclaration: boolean): void {
+  declareDominantCards(currentPotentialDeclarerPlayerIndex: number, currentDeclaration: DeckedCard | null): void {
     throw new Error('not implemented');
   }
 

@@ -17,7 +17,7 @@ class ImmutablePile {
     return this;
   }
 
-  static toImmutablePile(pile) {
+  static toImmutablePile(pile): ImmutablePile {
     return new ImmutablePile(pile.deckedCards);
   }
 
@@ -25,7 +25,7 @@ class ImmutablePile {
     return new Pile(this._deckedCards);
   }
 
-  prettyPrint(shengjiGameState) {
+  prettyPrint(shengjiGameState): string {
     const pileForPrettyPrint = this.pileClone();
     pileForPrettyPrint.sort(shengjiGameState);
     return pileForPrettyPrint.deckedCards
@@ -33,11 +33,11 @@ class ImmutablePile {
       .join(' ');
   }
 
-  get deckedCards() {
+  get deckedCards(): DeckedCard[] {
     return Array.from(this._deckedCards);
   }
 
-  get length() {
+  get length(): number {
     if (!this._deckedCards) {
       return 0;
     }

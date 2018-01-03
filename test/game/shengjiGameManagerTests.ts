@@ -1,11 +1,12 @@
 'use strict';
 import {assert} from 'chai';
 import {ShengjiGameManager} from '../../src/game/shengjiGameManager';
+import {ShengjiGameState} from '../../src/models/statemachines/shengjiGameState';
 import * as Players from '../../src/players/index';
 
 describe('initialize new game', () => {
   it('Check state is initialized', () => {
-    const shengjiGameManager = new ShengjiGameManager();
+    const shengjiGameManager: ShengjiGameManager = new ShengjiGameManager();
     shengjiGameManager.loadPlayers([
       new Players.ConsolePlayer(),
       new Players.ConsolePlayer(),
@@ -13,7 +14,7 @@ describe('initialize new game', () => {
       new Players.ConsolePlayer()
     ]);
     shengjiGameManager.initializeNewGame();
-    const state = shengjiGameManager.rootState.state;
+    const state: ShengjiGameState = shengjiGameManager.rootState.state;
     assert.strictEqual(2, state.currentRank);
     assert.strictEqual(2, state.currentRank);
     assert.strictEqual(2, state.currentRank);
@@ -28,16 +29,19 @@ describe('initialize new game', () => {
 });
 
 describe('load players process', () => {
+  // Won't compile in TypeScript
+  /*
   it('won\'t accept undefined', () => {
-    const shengjiGameManager = new ShengjiGameManager();
+    const shengjiGameManager: ShengjiGameManager = new ShengjiGameManager();
 
     assert.throws(() => {
       shengjiGameManager.loadPlayers(undefined);
     }, 'ShengjiGameManager.loadPlayers accepts an array of players.');
   });
+  */
 
   it('must be exactly 4 players', () => {
-    const shengjiGameManager = new ShengjiGameManager();
+    const shengjiGameManager: ShengjiGameManager = new ShengjiGameManager();
 
     assert.throws(() => {
       shengjiGameManager.loadPlayers([
@@ -56,15 +60,5 @@ describe('load players process', () => {
         new Players.ConsolePlayer()
       ]);
     }, 'ShengjiGameManager.loadPlayers accepts 4 players only.');
-  });
-});
-
-describe('deal cards', () => {
-  it('', () => {
-    const shengjiGameManager = new ShengjiGameManager();
-
-    assert.throws(() => {
-      shengjiGameManager.loadPlayers(undefined);
-    }, 'ShengjiGameManager.loadPlayers accepts an array of players.');
   });
 });

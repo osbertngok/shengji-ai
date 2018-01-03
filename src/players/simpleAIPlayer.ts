@@ -9,7 +9,7 @@ import {ShengjiGameRootState} from '../models/statemachines/shengjiGameRootState
 import {IPlayer} from './player';
 
 export class SimpleAIPlayer implements IPlayer {
-  dealCard(deckedCard: DeckedCard | null): void {
+  dealCard(deckedCard: DeckedCard | null): DeckedCard {
     throw new Error('Method not implemented.');
   }
 
@@ -17,7 +17,7 @@ export class SimpleAIPlayer implements IPlayer {
     throw new Error('Method not implemented.');
   }
 
-  informDominantCardDeclaration(currentPotentialDeclarerPlayerIndex: number, lastDeclaration: number): void {
+  informDominantCardDeclaration(currentPotentialDeclarerPlayerIndex: number, lastDeclaration: DeckedCard | null): void {
     throw new Error('Method not implemented.');
   }
 
@@ -25,7 +25,8 @@ export class SimpleAIPlayer implements IPlayer {
     throw new Error('Method not implemented.');
   }
 
-  respondToDominantCardDeclaration(latestInformationProvider: number, lastDeclaration: number): void {
+  respondToDominantCardDeclaration(latestInformationProvider: number,
+                                   lastDeclaration: DeckedCard | null): DeckedCard | null {
     throw new Error('Method not implemented.');
   }
 

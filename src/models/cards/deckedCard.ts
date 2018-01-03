@@ -1,5 +1,5 @@
 'use strict';
-import {Card} from './card';
+import {Card, Suits} from './card';
 
 const deckCollection = {};
 
@@ -9,13 +9,13 @@ export class DeckedCard {
 
   private _deckNo: number;
 
-  constructor(deckNo, suit, rank) {
+  constructor(deckNo: number, suit: Suits, rank: number) {
     return this.getOrCreate(deckNo, suit, rank);
   }
 
   static compareTo(deckedCard1: DeckedCard, deckedCard2: DeckedCard) {
-    const index1 = deckedCard1.card.getIndex();
-    const index2 = deckedCard2.card.getIndex();
+    const index1: number = deckedCard1.card.getIndex();
+    const index2: number = deckedCard2.card.getIndex();
     if (index1 < index2) {
       return -1;
     } else if (index1 > index2) {
@@ -31,16 +31,16 @@ export class DeckedCard {
     return 0;
   }
 
-  getOrCreate(deckNo, suit, rank) {
-    let existingDeck = deckCollection[deckNo];
+  getOrCreate(deckNo: number, suit: Suits, rank: number) {
+    let existingDeck: DeckedCard = deckCollection[deckNo];
     if (!existingDeck) {
       deckCollection[deckNo] = Array(54);
       existingDeck = deckCollection[deckNo];
     }
 
-    const index = Card.getIndex(suit, rank);
-    const existingCard = existingDeck[index];
-    if (existingCard) {
+    const index: number = Card.getIndex(suit, rank);
+    const existingCard: DeckedCard | undefined = existingDeck[index];
+    if (existingCard !== undefined) {
       return existingCard;
     } else {
       this._deckNo = deckNo;
@@ -51,11 +51,11 @@ export class DeckedCard {
     }
   }
 
-  get card() {
+  get card(): Card {
     return this._card;
   }
 
-  get deckNo() {
+  get deckNo(): number {
     return this._deckNo;
   }
 }

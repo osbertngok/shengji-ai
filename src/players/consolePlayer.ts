@@ -8,7 +8,7 @@ import {Pile} from '../models/cards/pile';
 import {IPlayer} from './player';
 
 export class ConsolePlayer implements IPlayer {
-  dealCard(deckedCard: DeckedCard | null): void {
+  dealCard(deckedCard: DeckedCard | null): DeckedCard {
     throw new Error('Method not implemented.');
   }
 
@@ -16,16 +16,16 @@ export class ConsolePlayer implements IPlayer {
     throw new Error('Method not implemented.');
   }
 
-  informDominantCardDeclaration(currentPotentialDeclarerPlayerIndex, lastDeclaration) {
+  informDominantCardDeclaration(currentPotentialDeclarerPlayerIndex: number, lastDeclaration: DeckedCard | null): null {
     console.log(`Player ${currentPotentialDeclarerPlayerIndex} declares with ${lastDeclaration}`);
     return null;
   }
 
-  loadRootState(rootState) {
+  loadRootState(rootState): void {
     // TODO
   }
 
-  respondToDominantCardDeclaration(latestInformationProvider, lastDeclaration) {
+  respondToDominantCardDeclaration(latestInformationProvider: number, lastDeclaration: DeckedCard | null): null {
     // TODO
     return null;
   }
