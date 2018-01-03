@@ -95,7 +95,7 @@ export class ShengjiGameState {
     throw new Error('not implemented');
   }
 
-  isDominantCardDecalred(): boolean {
+  isDominantCardDeclared(): boolean {
     throw new Error('not implemented');
   }
 }

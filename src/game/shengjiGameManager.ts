@@ -90,7 +90,7 @@ export class ShengjiGameManager {
     }
 
     // Joker will be the dominant card if
-    if (!this.rootState.state.isDominantCardDecalred()) {
+    if (!this.rootState.state.isDominantCardDeclared()) {
       // this.rootState.state.declareDominantCards();
     }
 
