@@ -1,10 +1,11 @@
 'use strict';
-const Card = require('./card');
-const DeckedCard = require('./deckedCard');
-const ShengjiErrorUtils = require('../../errors/shengjiErrorUtils');
+import {ShengjiErrorUtils} from '../../errors/shengjiErrorUtils';
+import {DeckedCard} from './deckedCard';
 
-class Pile {
-    constructor(arrayOfDeckedCards) {
+export class Pile {
+
+    private _deckedCards: DeckedCard[];
+    constructor(arrayOfDeckedCards: DeckedCard[]) {
         if (arrayOfDeckedCards === undefined) {
             this._deckedCards = [];
         }
@@ -21,9 +22,13 @@ class Pile {
         return new Pile(this.deckedCards);
     }
 
-    dealCard() {
-        const card = this._deckedCards.shift();
-        return card;
+    dealCard(): DeckedCard {
+        const card: DeckedCard | undefined = this._deckedCards.shift();
+        if (card === undefined) {
+            throw new Error('no card to deal');
+        } else {
+          return card;
+        }
     }
 
     prettyPrint(shengjiGameState) {
@@ -35,14 +40,14 @@ class Pile {
     }
 
     shuffle() {
-        let remainExchanges = _deckedCards.length;
+        let remainExchanges = this._deckedCards.length;
         while (remainExchanges) {
             const randomIndex = Math.floor(Math.random() * remainExchanges);
             remainExchanges--;
 
-            let tmp = this._dekcedCards[randomIndex];
-            this._dekcedCards[randomIndex] = this._dekcedCards[remainExchanges];
-            this._dekcedCards[remainExchanges] = tmp;
+            const tmp = this._deckedCards[randomIndex];
+            this._deckedCards[randomIndex] = this._deckedCards[remainExchanges];
+            this._deckedCards[remainExchanges] = tmp;
         }
     }
 
@@ -68,5 +73,3 @@ class Pile {
         return this._deckedCards.length;
     }
 }
-
-module.exports = Pile;

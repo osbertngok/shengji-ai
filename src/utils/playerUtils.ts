@@ -2,10 +2,10 @@
  * Created by osbertngok on 3/3/2017.
  */
 
-const Pile = require('../models/cards/pile');
-const ShengjiUtils = require('../utils/shengjiUtils');
+import {Pile} from '../models/cards/pile';
+import * as ShengjiUtils from './shengjiUtils';
 
-const isDominantCardsDeclarationValid = (potentialDeclaration, shengjiGameState, currentDeclaration) => {
+export const isDominantCardsDeclarationValid = (potentialDeclaration, shengjiGameState, currentDeclaration) => {
     // potentialDeclaration must be a pile of at least 1 DeckedCards
     if (!potentialDeclaration || potentialDeclaration.prototype.constructor !== Pile) {
         return false;
@@ -18,9 +18,8 @@ const isDominantCardsDeclarationValid = (potentialDeclaration, shengjiGameState,
     // Must be of the same suit / rank
     let suit = null;
     let rank = null;
-    for (let cardIndex = 0; cardIndex < potentialDeclaration.deckedCards.length; cardIndex++) {
-        const deckedCard = potentialDeclaration.deckedCards[cardIndex];
-        if (suit === null && rank === null){
+    for (const deckedCard of potentialDeclaration.deckedCards) {
+        if (suit === null && rank === null) {
             suit = deckedCard.suit;
             rank = deckedCard.rank;
             continue;
@@ -43,7 +42,3 @@ const isDominantCardsDeclarationValid = (potentialDeclaration, shengjiGameState,
     const noOfDeckedCardsInCurrentDeclaration = currentDeclaration ? currentDeclaration.deckedCards.length : 0;
 
 };
-
-module.exports = {
-    'isDominantCardsDeclarationValid': isDominantCardsDeclarationValid
-}

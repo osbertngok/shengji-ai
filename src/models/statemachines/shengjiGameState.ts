@@ -1,10 +1,30 @@
 'use strict';
 
-const ShengjiGameStateStatuses = require('./shengjiGameStateStatus');
-const ShengjiErrorUtils = require('../../errors/shengjiErrorUtils');
+import {ShengjiErrorUtils} from '../../errors/shengjiErrorUtils';
+import {Card} from '../cards/card';
+import {DeckedCard} from '../cards/deckedCard';
+import {GameStatuses as ShengjiGameStateStatuses} from './shengjiGameStateStatus';
 
-class ShengjiGameState {
-    constructor(config) {
+export interface IShengjiGameStateConfiguration {
+  team1Rank: number;
+  team2Rank: number;
+  dealerTeam: number;
+  dealer: number;
+  dominantCard: Card | null;
+  status: number;
+}
+
+export class ShengjiGameState {
+
+    private _team1Rank: number;
+    private _team2Rank: number;
+    private _dealerTeam: number;
+    private _dealer: number;
+    private _dominantCard: Card | null;
+    private _status: number;
+    private _noOfPlayers: number;
+
+    constructor(config?: IShengjiGameStateConfiguration) {
         if (config === undefined) {
             this._team1Rank = 2;
             this._team2Rank = 2;
@@ -26,13 +46,13 @@ class ShengjiGameState {
         return this;
     }
 
-    static validate(config) {
+    static validate(config: IShengjiGameStateConfiguration): void {
         if (config.dealerTeam !== 1 && config.dealerTeam !== 2) {
             throw ShengjiErrorUtils.invalidDealerTeam();
         }
     }
 
-    get currentRank() {
+    get currentRank(): number {
         switch (this.dealerTeam) {
             case 1:
                 return this.team1Rank;
@@ -43,34 +63,39 @@ class ShengjiGameState {
         }
     }
 
-    get dealerTeam() {
+    get dealerTeam(): number {
         return this._dealerTeam;
     }
 
-    get dealer() {
+    get dealer(): number {
         return this._dealer;
     }
 
-    get dominantCard() {
+    get dominantCard(): Card | null {
         return this._dominantCard;
     }
 
-    get noOfPlayers() {
+    get noOfPlayers(): number {
         return this._noOfPlayers;
     }
 
-    get status() {
+    get status(): number {
         return this._status;
     }
 
-    get team1Rank() {
+    get team1Rank(): number {
         return this._team1Rank;
     }
 
-    get team2Rank() {
+    get team2Rank(): number {
         return this._team2Rank;
     }
 
-}
+    declareDominantCards(currentPotentialDeclarerPlayerIndex: number, currentDeclaration: boolean): void {
+        throw new Error('not implemented');
+    }
 
-module.exports = ShengjiGameState;
+  isDominantCardDecalred(): boolean {
+        throw new Error('not implemented');
+  }
+}

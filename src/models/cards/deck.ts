@@ -1,11 +1,11 @@
 'use strict';
-const ShengjiErrorUtils = require('../../errors/shengjiErrorUtils');
+import {Card, Suits} from './card';
+import {DeckedCard} from './deckedCard';
+import {Pile} from './pile';
 
-const Card = require('./card');
-const DeckedCard = require('./deckedCard');
-const Pile = require('./pile');
+export class Deck {
 
-class Deck {
+    private _deckedCards: DeckedCard[];
     constructor(deckNo) {
         // Construct a deck
         this._deckedCards = Array(54);
@@ -18,8 +18,8 @@ class Deck {
         }
 
         for (let rank = 1; rank <= 2; ++rank) {
-            const index = Card.getIndex(Card.Suits.Joker, rank);
-            this._deckedCards[index] = new DeckedCard(deckNo, Card.Suits.Joker, rank);
+            const index = Card.getIndex(Suits.Joker, rank);
+            this._deckedCards[index] = new DeckedCard(deckNo, Suits.Joker, rank);
         }
     }
 
@@ -27,5 +27,3 @@ class Deck {
         return new Pile(this._deckedCards);
     }
 }
-
-module.exports = Deck;

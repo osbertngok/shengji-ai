@@ -1,8 +1,8 @@
 'use strict';
 
-const Card = require('../models/cards/card');
+import {Card, Suits} from '../models/cards/card';
 
-class ShengjiPredicates {
+export class ShengjiPredicates {
     /*
      Type: (ShengjiGameState, DeckedCard) => bool
      */
@@ -20,8 +20,8 @@ class ShengjiPredicates {
         const dominantCard = shengjiGameState.dominantCard;
         const card = deckedCard.card;
         return currentRank !== 14 &&
-            dominantCard.suit !== Card.Suits.Joker &&
-            card.suit !== Card.Suits.Joker &&
+            dominantCard.suit !== Suits.Joker &&
+            card.suit !== Suits.Joker &&
             dominantCard.rank === card.rank;
     }
 
@@ -33,8 +33,8 @@ class ShengjiPredicates {
         const dominantCard = shengjiGameState.dominantCard;
         const card = deckedCard.card;
         return currentRank !== 14 &&
-            dominantCard.suit !== Card.Suits.Joker &&
-            card.suit !== Card.Suits.Joker &&
+            dominantCard.suit !== Suits.Joker &&
+            card.suit !== Suits.Joker &&
             dominantCard.suit === card.suit;
     }
 
@@ -42,8 +42,6 @@ class ShengjiPredicates {
      Type: (DeckedCard) => bool
      */
     static isJoker(deckedCard) {
-        return deckedCard.card.suit === Card.Suits.Joker;
+        return deckedCard.card.suit === Suits.Joker;
     }
 }
-
-module.exports = ShengjiPredicates;

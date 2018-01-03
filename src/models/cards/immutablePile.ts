@@ -1,8 +1,12 @@
 'use strict';
-const Pile = require('./pile');
+import {DeckedCard} from './deckedCard';
+import {Pile} from './pile';
 
 class ImmutablePile {
-    constructor(arrayOfDeckedCards) {
+
+    private _deckedCards: DeckedCard[];
+
+    constructor(arrayOfDeckedCards: DeckedCard[]) {
         if (arrayOfDeckedCards === undefined) {
             this._deckedCards = [];
         }
@@ -17,12 +21,12 @@ class ImmutablePile {
         return new ImmutablePile(pile.deckedCards);
     }
 
-    pileClone() {
+    pileClone(): Pile {
         return new Pile(this._deckedCards);
     }
 
     prettyPrint(shengjiGameState) {
-        const pileForPrettyPrint = this.clone();
+        const pileForPrettyPrint = this.pileClone();
         pileForPrettyPrint.sort(shengjiGameState);
         return pileForPrettyPrint.deckedCards
             .map(deckedCard => deckedCard.card.toString())
@@ -41,5 +45,3 @@ class ImmutablePile {
         return this._deckedCards.length;
     }
 }
-
-module.exports = ImmutablePile;

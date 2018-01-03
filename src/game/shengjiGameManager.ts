@@ -1,21 +1,24 @@
 /**
  * Created by osbertngok on 27/2/2017.
  */
+
 'use strict';
 
-const Deck = require('../models/cards/deck');
-const Pile = require('../models/cards/pile');
-const constants = require('../constants/index');
-const EnumUtils = require('../utils/enumUtils');
-const PileUtils = require('../utils/pileUtils');
-const ShengjiErrorUtils = require('../errors/shengjiErrorUtils');
-const ShengjiGameRootState = require('../models/statemachines/shengjiGameRootState');
-const Players = require('../players/index');
-const GameStatuses = require('../models/statemachines/shengjiGameStateStatus');
-const GameActionTypes = require('../models/statemachines/shengjiGameStateActionType');
+import {ShengjiErrorUtils} from '../errors/shengjiErrorUtils';
+import {Deck} from '../models/cards/deck';
+import {DeckedCard} from '../models/cards/deckedCard';
+import {Pile} from '../models/cards/pile';
+import {ShengjiGameRootState} from '../models/statemachines/shengjiGameRootState';
+import * as Players from '../players/index';
+import * as PileUtils from '../utils/pileUtils';
 
-class ShengjiGameManager {
+export class ShengjiGameManager {
 
+    private _players: Players.IPlayer[];
+
+    private _rootState: ShengjiGameRootState;
+
+    private _stockPile: Pile;
 
     constructor() {
         this._rootState = new ShengjiGameRootState();
@@ -39,8 +42,7 @@ class ShengjiGameManager {
             const player = players[playerIndex];
             try {
                 Players.validatePlayer(player);
-            }
-            catch (ex) {
+            } catch (ex) {
                 throw ShengjiErrorUtils.invalidPlayer(`Player ${playerIndex}: ${ex.message}`);
             }
 
@@ -57,14 +59,15 @@ class ShengjiGameManager {
         // For each card:
 
         while (this.stockPile.length > bottomCardsNo) {
-            const dealtCard = this.stockPile.dealCard();
+            const dealtCard: DeckedCard = this.stockPile.dealCard();
             let lastDeclaration = null;
             let latestInformationProvider = currentPlayerIndex;
-            let currentPotentialDeclarerPlayerIndex = (latestInformationProvider + 1) % this.rootState.state.noOfPlayers;
+            let currentPotentialDeclarerPlayerIndex =
+              (latestInformationProvider + 1) % this.rootState.state.noOfPlayers;
 
             while (currentPotentialDeclarerPlayerIndex !== latestInformationProvider) {
                 //noinspection JSUnresolvedFunction
-                let currentDeclaration = latestInformationProvider === null ?
+                const currentDeclaration = latestInformationProvider === null ?
                     this.players[currentPlayerIndex].dealCard(dealtCard) :
                     this.players[currentPotentialDeclarerPlayerIndex].respondToDominantCardDeclaration(
                         latestInformationProvider,
@@ -77,18 +80,19 @@ class ShengjiGameManager {
                     lastDeclaration = currentDeclaration;
                     latestInformationProvider = currentPotentialDeclarerPlayerIndex;
                     for (let playerIndex = 0; playerIndex < this.rootState.state.noOfPlayers; playerIndex++) {
-                        //noinspection JSUnresolvedFunction
-                        this.players[playerIndex].informDominantCardDeclaration(currentPotentialDeclarerPlayerIndex, lastDeclaration);
+                        this.players[playerIndex].informDominantCardDeclaration(currentPotentialDeclarerPlayerIndex,
+                          lastDeclaration);
                     }
                 }
-                currentPotentialDeclarerPlayerIndex = (currentPotentialDeclarerPlayerIndex + 1) % this.rootState.state.noOfPlayers;
+                currentPotentialDeclarerPlayerIndex =
+                  (currentPotentialDeclarerPlayerIndex + 1) % this.rootState.state.noOfPlayers;
             }
             currentPlayerIndex = (currentPlayerIndex + 1) % this.rootState.state.noOfPlayers;
         }
 
         // Joker will be the dominant card if
         if (!this.rootState.state.isDominantCardDecalred()) {
-            this.rootState.state.declareDominantCards();
+            // this.rootState.state.declareDominantCards();
         }
 
         // Dealer collect the rest of the cards, and get back the same amount of cards
@@ -104,7 +108,7 @@ class ShengjiGameManager {
 
     initializeNewGame() {
         // Inform all players current state
-        for (let player of this.players) {
+        for (const player of this.players) {
             player.loadRootState(this.rootState);
         }
     }
@@ -112,7 +116,8 @@ class ShengjiGameManager {
     initializeNewRound() {
         // get 3 decks of playing cards and shuffle
         // Add 0, 1, 2 decks to stock pile
-        const stockPile = PileUtils.concat(...[0, 1, 2].map((pileIndex) => new Deck(pileIndex).toPile()));
+        const stockPile: Pile =
+          PileUtils.concat(...[0, 1, 2].map((pileIndex: number): Pile => new Deck(pileIndex).toPile()));
         stockPile.shuffle();
         this.stockPile = stockPile;
     }
@@ -144,6 +149,8 @@ class ShengjiGameManager {
     validateDeclaration(currentPlayerIndex, lastDeclaration) {
         return;
     }
-}
 
-module.exports = ShengjiGameManager;
+    validateBottomPile(bottomPile: Pile, dealer: number, stockPile: Pile) {
+        throw new Error('Not Implemeneted');
+    }
+}

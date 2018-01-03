@@ -1,8 +1,10 @@
 'use strict';
 
-const ShengjiGameState = require('./shengjiGameState');
+import {ShengjiGameState} from './shengjiGameState';
 
-class ShengjiGameRootState {
+export class ShengjiGameRootState {
+
+    private _state: ShengjiGameState;
 
     constructor() {
         this._state = new ShengjiGameState();
@@ -16,5 +18,3 @@ class ShengjiGameRootState {
         return this.state.status;
     }
 }
-
-module.exports = ShengjiGameRootState;

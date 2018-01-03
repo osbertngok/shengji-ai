@@ -1,8 +1,6 @@
 'use strict';
-class ShengjiError extends Error {
+export class ShengjiError extends Error {
     constructor(message) {
         super(message);
     }
 }
-
-module.exports = ShengjiError;

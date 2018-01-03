@@ -2,9 +2,9 @@
  * Created by osbertngok on 2/3/2017.
  */
 'use strict';
-const ShengjiError = require('./shengjiError');
+import {ShengjiError} from './shengjiError';
 
-class ShengjiErrorUtils {
+export class ShengjiErrorUtils {
 
     static invalidDealerTeam() {
         return new ShengjiError('Invalid Dealer Team');
@@ -26,5 +26,3 @@ class ShengjiErrorUtils {
         return new ShengjiError('Invalid Rank');
     }
 }
-
-module.exports = ShengjiErrorUtils;

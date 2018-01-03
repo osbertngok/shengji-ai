@@ -1,17 +1,24 @@
 'use strict';
-const ShengjiErrorUtils = require('../../errors/shengjiErrorUtils');
+import {ShengjiErrorUtils} from '../../errors/shengjiErrorUtils';
 
-const Suits = {
-    'Spade': 0,
-    'Heart': 1,
-    'Club': 2,
-    'Diamond': 3,
-    'Joker': 4
+// tslint:disable:object-literal-sort-keys
+export const Suits = {
+    Spade: 0,
+    Heart: 1,
+    Club: 2,
+    Diamond: 3,
+    Joker: 4
 };
+// tslint:enable:object-literal-sort-keys
 
-let cardCollection = Array(54);
+const cardCollection = Array(54);
 
-class Card {
+export class Card {
+
+    private _suit: number;
+
+    private _rank: number;
+
     constructor(suit, rank) {
         this.validate(suit, rank);
         return this.getOrCreate(suit, rank);
@@ -40,7 +47,7 @@ class Card {
     }
 
     toString() {
-        if (this.suit === Card.Suits.Joker) {
+        if (this.suit === Suits.Joker) {
             switch (this.rank) {
                 case 1:
                     return 'jr';
@@ -50,18 +57,19 @@ class Card {
                     throw ShengjiErrorUtils.invalidRank();
             }
         } else {
-            let suitString, rankString;
+            let suitString;
+            let rankString;
             switch (this.suit) {
-                case Card.Suits.Spade:
+                case Suits.Spade:
                     suitString = '♠';
                     break;
-                case Card.Suits.Heart:
+                case Suits.Heart:
                     suitString = '♥';
                     break;
-                case Card.Suits.Club:
+                case Suits.Club:
                     suitString = '♣';
                     break;
-                case Card.Suits.Diamond:
+                case Suits.Diamond:
                     suitString = '♦';
                     break;
                 default:
@@ -126,7 +134,3 @@ class Card {
         return this._rank;
     }
 }
-
-Card.Suits = Suits;
-
-module.exports = Card;

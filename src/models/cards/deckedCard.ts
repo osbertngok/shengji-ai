@@ -1,14 +1,19 @@
 'use strict';
-const Card = require('./card');
+import {Card} from './card';
 
-let deckCollection = {};
+const deckCollection = {};
 
-class DeckedCard {
+export class DeckedCard {
+
+  private _card: Card;
+
+  private _deckNo: number;
+
     constructor(deckNo, suit, rank) {
         return this.getOrCreate(deckNo, suit, rank);
     }
 
-    static compareTo(deckedCard1, deckedCard2) {
+    static compareTo(deckedCard1: DeckedCard, deckedCard2: DeckedCard) {
         const index1 = deckedCard1.card.getIndex();
         const index2 = deckedCard2.card.getIndex();
         if (index1 < index2) {
@@ -54,5 +59,3 @@ class DeckedCard {
         return this._deckNo;
     }
 }
-
-module.exports = DeckedCard;
