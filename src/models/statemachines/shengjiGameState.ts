@@ -2,7 +2,6 @@
 
 import {ShengjiErrorUtils} from '../../errors/shengjiErrorUtils';
 import {Card} from '../cards/card';
-import {DeckedCard} from '../cards/deckedCard';
 import {GameStatuses as ShengjiGameStateStatuses} from './shengjiGameStateStatus';
 
 export interface IShengjiGameStateConfiguration {

@@ -1,5 +1,6 @@
 'use strict';
 import {assert} from 'chai';
+import {GameStatuses as ShengjiGameStateStatuses} from '../../src/models/statemachines/shengjiGameStateStatus';
 import {Card, Suits} from '../../src/models/cards/card';
 import {DeckedCard} from '../../src/models/cards/deckedCard';
 import {Pile} from '../../src/models/cards/pile';
@@ -8,8 +9,12 @@ import * as ShengjiUtils from '../../src/utils/shengjiUtils';
 
 describe('Heart 2 Dominant Card Comparison', () => {
     const shengjiGameState = new ShengjiGameState({
-        'dominantCard': new Card(Suits.Heart, 2),
-        'dealerTeam': 1
+      dealer: 1,
+      dealerTeam: 1,
+      dominantCard: new Card(Suits.Heart, 2),
+      status: ShengjiGameStateStatuses.GameCreated,
+      team1Rank: 2,
+      team2Rank: 2
     });
     const comparisonFunc = ShengjiUtils.compare.getDeckedCardSortFunc(shengjiGameState);
 
@@ -32,7 +37,7 @@ describe('Heart 2 Dominant Card Comparison', () => {
         const card2 = new DeckedCard(1, Suits.Joker, 2);
         assert.equal(-1, comparisonFunc(card1, card2));
         assert.equal(1, comparisonFunc(card2, card1));
-    })
+    });
 
     it('Dominant Rank, non-dominant suit vs. dominant suit', () => {
         const card1 = new DeckedCard(1, Suits.Diamond, 2);
@@ -105,7 +110,7 @@ describe('Heart 2 Dominant Card Comparison', () => {
             new DeckedCard(2, Suits.Joker, 1),
             new DeckedCard(3, Suits.Joker, 1)
         ].forEach(deckedCard => {
-            assert.strictEqual(deckedCard, pile.dealCard())
+            assert.strictEqual(deckedCard, pile.dealCard());
         });
-    })
+    });
 });

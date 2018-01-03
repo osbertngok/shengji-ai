@@ -29,6 +29,7 @@
     "baseUrl": "./src",
     "strictNullChecks": true, /* returning null should be explicit in the application */
     "types": [ /* Needs this in package.json */
+      "mocha"
     ],
     "lib": [
       "es7",

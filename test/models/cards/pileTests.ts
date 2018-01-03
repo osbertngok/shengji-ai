@@ -5,6 +5,7 @@ import {Deck} from '../../../src/models/cards/deck';
 import {DeckedCard} from '../../../src/models/cards/deckedCard';
 import {Pile} from '../../../src/models/cards/pile';
 import {ShengjiGameState} from '../../../src/models/statemachines/shengjiGameState';
+import {GameStatuses as ShengjiGameStateStatuses} from '../../../src/models/statemachines/shengjiGameStateStatus';
 import * as ShengjiUtils from '../../../src/utils/shengjiUtils';
 
 describe('Pile', () => {
@@ -15,8 +16,12 @@ describe('Pile', () => {
 
     it('Pretty Print', () => {
         const shengjiGameState = new ShengjiGameState({
+          dealer: 1,
+          dealerTeam: 1,
             dominantCard: new Card(Suits.Heart, 2),
-            dealerTeam: 1
+          status: ShengjiGameStateStatuses.GameCreated,
+            team1Rank: 2,
+            team2Rank: 2
         });
         const pile = new Pile([
             new DeckedCard(1, Suits.Spade, 1),
@@ -46,6 +51,7 @@ describe('Pile', () => {
             new DeckedCard(3, Suits.Club, 7)
         ]);
         const prettyPrintResult = pile.prettyPrint(ShengjiUtils.compare.getDeckedCardSortFunc(shengjiGameState));
-        assert.strictEqual('♠3 ♠Q ♠Q ♠A ♣3 ♣6 ♣6 ♣7 ♣7 ♣J ♦5 ♦9 ♦10 ♥3 ♥4 ♥5 ♥5 ♥6 ♥7 ♥K ♠2 ♥2 ♥2 jr JR', prettyPrintResult);
+        assert.strictEqual('♠3 ♠Q ♠Q ♠A ♣3 ♣6 ♣6 ♣7 ♣7 ♣J ♦5 ♦9 ♦10 ♥3 ♥4 ♥5 ♥5 ♥6 ♥7 ♥K ♠2 ♥2 ♥2 jr JR',
+          prettyPrintResult);
     });
 });

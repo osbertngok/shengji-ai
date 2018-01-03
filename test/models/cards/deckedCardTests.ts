@@ -1,7 +1,6 @@
 'use strict';
 import {assert} from 'chai';
 import {Suits} from '../../../src/models/cards/card';
-import {Suits} from '../../../src/models/cards/card';
 import {DeckedCard} from '../../../src/models/cards/deckedCard';
 
 describe('DeckedCard', () => {

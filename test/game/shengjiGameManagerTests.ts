@@ -32,7 +32,7 @@ describe('load players process', () => {
         const shengjiGameManager = new ShengjiGameManager();
 
         assert.throws(() => {
-            shengjiGameManager.loadPlayers();
+            shengjiGameManager.loadPlayers(undefined);
         }, 'ShengjiGameManager.loadPlayers accepts an array of players.');
     });
 
@@ -64,7 +64,7 @@ describe('deal cards', () => {
         const shengjiGameManager = new ShengjiGameManager();
 
         assert.throws(() => {
-            shengjiGameManager.loadPlayers();
+            shengjiGameManager.loadPlayers(undefined);
         }, 'ShengjiGameManager.loadPlayers accepts an array of players.');
     });
 });
