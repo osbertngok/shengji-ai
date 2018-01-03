@@ -38,3 +38,6 @@ jspm_packages
 
 # Ignore webstorm files
 .idea
+
+# Ignore dist
+/dist

@@ -1,0 +1,51 @@
+/*
+  Refers to https://www.typescriptlang.org/docs/handbook/compiler-options.html
+*/
+/*
+  tsconfig.json now supports comment
+  https://github.com/Microsoft/TypeScript/pull/5450
+*/
+{
+  "compilerOptions": {
+    "target": "ES2017", /* Allow node to use async/await for optimization */
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "declaration": false, /* Generates corresponding .d.ts file. */
+    "removeComments": true, /* Remove all comments except copy-right header comments */
+    "noLib": false, /* Do not include the default library file (lib.d.ts). */
+    "emitDecoratorMetadata": true, /* Emit design-type metadata for decorated declarations in source. */
+    "experimentalDecorators": true, /* Enables experimental support for ES decorators. */
+    "sourceMap": true, /* Generates corresponding .map file. */
+    "pretty": true, /* Stylize errors and messages using color and context. */
+    "allowUnreachableCode": false, /* Do not report errors on unreachable code. */
+    "allowUnusedLabels": false, /* Do not report errors on unused labels. */
+    "noImplicitAny": false, /* Raise error on expressions and declarations with an implied any type. */
+    "noImplicitReturns": false, /* Report error when not all code paths in function return a value. */
+    "noImplicitUseStrict": false, /* Raise error on this expressions with an implied any type.
+ */
+    "noUnusedParameters":false, /* Report errors on unused parameters. */
+    "noUnusedLocals":false, /* Report errors on unused locals. */
+    "noFallthroughCasesInSwitch": true, /* 	Report errors for fallthrough cases in switch statement. */
+    "baseUrl": "./src",
+    "strictNullChecks": true, /* returning null should be explicit in the application */
+    "types": [ /* Needs this in package.json */
+      "mocha"
+    ],
+    "lib": [
+      "es7",
+      "dom",
+      "es2015"
+    ],
+    "outDir": "./dist"
+  },
+  "exclude": [
+    "test", /* DO NOT REMOVE, it will change the structure of /dist. Remove it when you know what you are doing. */
+    "node_modules",
+    "public",
+    "dist",
+    "test"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": { "rewriteTsconfig": false }
+}
