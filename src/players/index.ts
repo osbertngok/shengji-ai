@@ -13,19 +13,19 @@ import {ShengjiErrorUtils} from '../errors/shengjiErrorUtils';
 import {IPlayer} from './player';
 
 const requiredPlayerFunctions = [
-    'loadRootState',
-    'informDominantCardDeclaration',
-    'respondToDominantCardDeclaration'];
+  'loadRootState',
+  'informDominantCardDeclaration',
+  'respondToDominantCardDeclaration'];
 
 export const validatePlayer = (player: IPlayer) => {
-    // It needs to be an object
-    if (player === null || typeof player !== 'object') {
-        throw ShengjiErrorUtils.invalidPlayer('player is not an object.');
-    }
+  // It needs to be an object
+  if (player === null || typeof player !== 'object') {
+    throw ShengjiErrorUtils.invalidPlayer('player is not an object.');
+  }
 
-    requiredPlayerFunctions.forEach( funcName => {
-        if (typeof player[funcName] !== 'function') {
-            throw ShengjiErrorUtils.invalidPlayer(`player does not have function ${funcName}.`);
-        }
-    });
+  requiredPlayerFunctions.forEach( funcName => {
+    if (typeof player[funcName] !== 'function') {
+      throw ShengjiErrorUtils.invalidPlayer(`player does not have function ${funcName}.`);
+    }
+  });
 };

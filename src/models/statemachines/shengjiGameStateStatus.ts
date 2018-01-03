@@ -3,8 +3,8 @@
  */
 'use strict';
 export const GameStatuses = {
-    GameCreated: 0,
-    GameInitialized: 1,
-    GameStarted: 2,
-    PlayersLoaded: 3
+  GameCreated: 0,
+  GameInitialized: 1,
+  GameStarted: 2,
+  PlayersLoaded: 3
 };

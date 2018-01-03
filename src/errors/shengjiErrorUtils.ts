@@ -6,23 +6,23 @@ import {ShengjiError} from './shengjiError';
 
 export class ShengjiErrorUtils {
 
-    static invalidDealerTeam() {
-        return new ShengjiError('Invalid Dealer Team');
-    }
+  static invalidDealerTeam() {
+    return new ShengjiError('Invalid Dealer Team');
+  }
 
-    static invalidPlayer(msg) {
-        return new ShengjiError(msg);
-    }
+  static invalidPlayer(msg) {
+    return new ShengjiError(msg);
+  }
 
-    static invalidSortFunction() {
-        return new ShengjiError('Invalid Sort Function');
-    }
+  static invalidSortFunction() {
+    return new ShengjiError('Invalid Sort Function');
+  }
 
-    static invalidSuit() {
-        return new ShengjiError('Invalid Suit');
-    }
+  static invalidSuit() {
+    return new ShengjiError('Invalid Suit');
+  }
 
-    static invalidRank() {
-        return new ShengjiError('Invalid Rank');
-    }
+  static invalidRank() {
+    return new ShengjiError('Invalid Rank');
+  }
 }

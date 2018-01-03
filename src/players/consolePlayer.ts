@@ -17,16 +17,16 @@ export class ConsolePlayer implements IPlayer {
   }
 
   informDominantCardDeclaration(currentPotentialDeclarerPlayerIndex, lastDeclaration) {
-        console.log(`Player ${currentPotentialDeclarerPlayerIndex} declares with ${lastDeclaration}`);
-        return null;
-    }
+    console.log(`Player ${currentPotentialDeclarerPlayerIndex} declares with ${lastDeclaration}`);
+    return null;
+  }
 
-    loadRootState(rootState) {
-        // TODO
-    }
+  loadRootState(rootState) {
+    // TODO
+  }
 
-    respondToDominantCardDeclaration(latestInformationProvider, lastDeclaration) {
-        // TODO
-        return null;
-    }
+  respondToDominantCardDeclaration(latestInformationProvider, lastDeclaration) {
+    // TODO
+    return null;
+  }
 }
