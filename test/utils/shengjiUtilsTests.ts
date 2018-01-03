@@ -1,10 +1,10 @@
 'use strict';
 import {assert} from 'chai';
-import {GameStatuses as ShengjiGameStateStatuses} from '../../src/models/statemachines/shengjiGameStateStatus';
 import {Card, Suits} from '../../src/models/cards/card';
 import {DeckedCard} from '../../src/models/cards/deckedCard';
 import {Pile} from '../../src/models/cards/pile';
 import {ShengjiGameState} from '../../src/models/statemachines/shengjiGameState';
+import {GameStatuses as ShengjiGameStateStatuses} from '../../src/models/statemachines/shengjiGameStateStatus';
 import * as ShengjiUtils from '../../src/utils/shengjiUtils';
 
 describe('Heart 2 Dominant Card Comparison', () => {
