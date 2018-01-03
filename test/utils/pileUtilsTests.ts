@@ -45,3 +45,38 @@ describe('Intersection Test', () => {
   });
 });
 
+describe('Concat Test', () => {
+  it('1 Concat', () => {
+    const pile1: Pile = new Pile([
+      new DeckedCard(1, Suits.Diamond, 12),
+      new DeckedCard(2, Suits.Diamond, 1),
+      new DeckedCard(2, Suits.Diamond, 4),
+      new DeckedCard(2, Suits.Heart, 2),
+      new DeckedCard(3, Suits.Spade, 2),
+      new DeckedCard(1, Suits.Joker, 1),
+      new DeckedCard(3, Suits.Spade, 5),
+      new DeckedCard(1, Suits.Spade, 6),
+      new DeckedCard(1, Suits.Club, 7),
+      new DeckedCard(1, Suits.Club, 8),
+      new DeckedCard(1, Suits.Heart, 9)
+    ]);
+
+    const pile2: Pile = new Pile([
+      new DeckedCard(2, Suits.Diamond, 12),
+      new DeckedCard(2, Suits.Diamond, 1),
+      new DeckedCard(3, Suits.Diamond, 4),
+      new DeckedCard(3, Suits.Heart, 2),
+      new DeckedCard(1, Suits.Spade, 2),
+      new DeckedCard(2, Suits.Joker, 1),
+      new DeckedCard(1, Suits.Spade, 5),
+      new DeckedCard(2, Suits.Spade, 6),
+      new DeckedCard(2, Suits.Club, 7),
+      new DeckedCard(2, Suits.Club, 8),
+      new DeckedCard(2, Suits.Heart, 9)
+    ]);
+
+    const concatPile: Pile = PileUtils.concat(pile1, pile2);
+    assert.strictEqual(21, concatPile.length);
+  });
+});
+
