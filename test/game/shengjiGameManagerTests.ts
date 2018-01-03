@@ -1,7 +1,7 @@
 'use strict';
-const ShengjiGameManager = require('../../src/game/shengjiGameManager');
-const assert = require('chai').assert;
-const Players = require('../../src/players/index');
+import {assert} from 'chai';
+import {ShengjiGameManager} from '../../src/game/shengjiGameManager';
+import * as Players from '../../src/players/index';
 
 describe('initialize new game', () => {
     it('Check state is initialized', () => {

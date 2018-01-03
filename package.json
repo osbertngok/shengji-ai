@@ -4,9 +4,10 @@
   "description": "Shengji game with AI",
   "main": "app.js",
   "scripts": {
-    "build": "yarn run build-ts && yarn run tslint",
+    "build": "yarn run build-ts && yarn run tslint && yarn run test",
     "build-ts": "tsc",
     "serve": "nodemon dist/app.js",
+    "test": "(find ./src ./test -name '*.js' | xargs rm -f ) && (find ./test -name '*.ts'| xargs mocha --require ts-node/register)",
     "tslint": "tslint -c tslint.json -p tsconfig.json"
   },
   "repository": "git+https://github.com/osbertngok/shengji-ai.git",
@@ -23,7 +24,8 @@
   "homepage": "https://github.com/osbertngok/shengji-ai#readme",
   "dependencies": {
     "immutable": "^3.8.1",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "ts-node": "^4.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
